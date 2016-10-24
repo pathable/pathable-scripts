@@ -5,6 +5,8 @@ NC='\033[0m'
 packageDir=$PACKAGE_DIRS
 pull=false
 reinstall=false
+enforceMaster=true
+defaultGitBranch="master"
 npmCommand="meteor npm"
 
 # Install npm modules. Takes two positional arguments:
@@ -25,7 +27,14 @@ function installNpm {
 # Pull latest from current branch. Takes one position argument:
 # 1) directory which should be git updated
 function updateFromGit {
+  gitBranch=`git rev-parse --abbrev-ref HEAD`
   gitDir=${1-.}
+
+  if [ "$enforceMaster" = true ] && [ $gitBranch != $defaultGitBranch ]; then
+    echo "$gitDir is not on branch \"$defaultGitBranch\" (it is on $gitBranch)"
+    exit
+  fi
+
   printf "${BLUE}Updating from git: %s\n${NC}" "${gitDir##*/}"
   git -C $gitDir pull
 }
