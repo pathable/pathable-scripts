@@ -21,7 +21,8 @@ if ! type "redis-server" > /dev/null; then
 fi
 
 if [ $runner = "test" ]; then
-  meteor test --driver-package dispatch:mocha-browser ./ --port $PORT &
+  meteor test --driver-package dispatch:mocha-browser ./ \
+    --settings config/test/settings.json --port $PORT &
 elif [ $runner = "app-test" ]; then
   meteor test --full-app --driver-package tmeasday:acceptance-test-driver \
     --settings config/test/settings.json --port $PORT &
