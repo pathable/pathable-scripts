@@ -65,7 +65,7 @@ function run {
     if [ ! -z "$line" ] && [ -d "$packagePath" ]; then
 
       if [ "$(ls -A $packageLocalPath)" ]; then
-        >&2 echo "$(tput setaf 1) You have a package installed in the ./package directory. You may instead want to set PACKAGES_DIR and manage packages via git instead.$(tput setab 7)"
+        >&2 echo "$(tput setaf 1) You have a package installed in the $packageLocalPath directory. You may instead want to set PACKAGES_DIR and manage packages via git instead.$(tput setab 7)"
       fi
 
       if [ "$pull" = true ] && [ -d "$packagePath/.git" ]; then
