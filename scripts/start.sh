@@ -12,6 +12,8 @@ else
   environment="development"
 fi
 
+settingsFile=config/$environment/settings.json
+
 load_env "config/.env"
 load_env "config/$environment/.env"
 
@@ -21,17 +23,21 @@ if ! type "redis-server" > /dev/null; then
 fi
 
 if [ $runner = "test" ]; then
-  meteor test --driver-package dispatch:mocha-browser ./ \
-    --settings config/test/settings.json --port $PORT &
+  meteor test --driver-package dispatch:mocha-browser --settings $settingsFile --port $PORT &
+
+elif [ $runner = "ci-test" ]; then
+  meteor test --driver-package dispatch:mocha-phantomjs --settings $settingsFile --port $PORT --once &
+
 elif [ $runner = "app-test" ]; then
-  meteor test --full-app --driver-package tmeasday:acceptance-test-driver \
-    --settings config/test/settings.json --port $PORT &
+  meteor test --driver-package tmeasday:acceptance-test-driver --settings $settingsFile --port $PORT --full-app &
+
 elif [ $runner = "int-test" ]; then
-  meteor test --full-app --driver-package tmeasday:acceptance-test-driver \
-    --settings config/test/settings.json --port $PORT &
+  meteor test --driver-package tmeasday:acceptance-test-driver --settings $settingsFile --port $PORT --full-app  &
   node_modules/.bin/chimp --ddp=$ROOT_URL --watch --cucumber --path=tests &
+
 else
   meteor run $target --settings config/$environment/settings.json --port $PORT &
+
 fi
 
 # wait until done then kill anything started here
