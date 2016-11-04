@@ -35,6 +35,9 @@ elif [ $runner = "int-test" ]; then
   meteor test --driver-package tmeasday:acceptance-test-driver --settings $settingsFile --port $PORT --full-app  &
   node_modules/.bin/chimp --ddp=$ROOT_URL --watch --cucumber --path=tests &
 
+elif [ $runner = "packages-test" ]; then
+  meteor test-packages --driver-package dispatch:mocha-browser ./ --settings $settingsFile --port $PORT --release $METEOR_RELEASE
+
 else
   meteor run $target --settings config/$environment/settings.json --port $PORT &
 
