@@ -5,6 +5,7 @@ NC='\033[0m'
 packageDir=$PACKAGE_DIRS
 pull=false
 reinstall=false
+clearPackages=false
 enforceMaster=true
 defaultGitBranch="master"
 npmCommand="meteor npm"
@@ -65,7 +66,13 @@ function run {
     if [ ! -z "$line" ] && [ -d "$packagePath" ]; then
 
       if [ "$(ls -A $packageLocalPath)" ]; then
-        >&2 echo "$(tput setaf 1) You have a package installed in the $packageLocalPath directory. You may instead want to set PACKAGES_DIR and manage packages via git instead.$(tput setab 7)"
+        if [ "$clearPackages" = true ] ; then
+          echo "Removing contents of folder $packageLocalPath"
+          rm -rf $packageLocalPath
+          mkdir $packageLocalPath
+        else
+          >&2 echo "$(tput setaf 1) You have a package installed in the $packageLocalPath directory. You may instead want to set PACKAGES_DIR and manage packages via git instead.$(tput setab 7)"
+        fi
       fi
 
       if [ "$pull" = true ] && [ -d "$packagePath/.git" ]; then
@@ -81,16 +88,19 @@ function run {
   installMeteorNpm
 }
 
-function usage { echo "Usage: $0 [-p(ull) -r(einstall)]" 1>&2; exit 1; }
+function usage { echo "Usage: $0 [-p(ull) -r(einstall) -c(lear)]" 1>&2; exit 1; }
 
 # parse optional parameters
-while getopts ":pr" opt; do
+while getopts ":prc" opt; do
   case $opt in
     p)
       pull=true
       ;;
     r)
       reinstall=true
+      ;;
+    c)
+      clearPackages=true
       ;;
     *)
       usage
