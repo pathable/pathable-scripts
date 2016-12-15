@@ -40,11 +40,6 @@ function updateFromGit {
   git -C $gitDir pull
 }
 
-# Install npm modules that need to be installed via meteor
-function installMeteorNpm {
-  meteor npm install unicode bcrypt
-}
-
 # Install npm modules from Meteor dependent packages. Takes two position arguments:
 # 1) flag to git pull each package first, if possible
 # 2) flag to first clear node_modules directory
@@ -84,8 +79,6 @@ function run {
       fi
     fi
   done < '.meteor/packages'
-
-  installMeteorNpm
 }
 
 function usage { echo "Usage: $0 [-p(ull) -r(einstall) -c(lear)]" 1>&2; exit 1; }
