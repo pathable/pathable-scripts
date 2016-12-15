@@ -22,7 +22,7 @@ function installNpm {
   fi
 
   printf "${BLUE}Installing npm modules from: %s\n${NC}" "${path##*/}"
-  $npmCommand install --prefix $path --ignore-scripts
+  $npmCommand install --prefix $path
 }
 
 # Pull latest from current branch. Takes one position argument:
