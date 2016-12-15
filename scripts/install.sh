@@ -22,7 +22,7 @@ function installNpm {
   fi
 
   printf "${BLUE}Installing npm modules from: %s\n${NC}" "${path##*/}"
-  $npmCommand install --prefix $path --ignore-scripts
+  $npmCommand install --prefix $path
 }
 
 # Pull latest from current branch. Takes one position argument:
@@ -38,11 +38,6 @@ function updateFromGit {
 
   printf "${BLUE}Updating from git: %s\n${NC}" "${gitDir##*/}"
   git -C $gitDir pull
-}
-
-# Install npm modules that need to be installed via meteor
-function installMeteorNpm {
-  meteor npm install unicode bcrypt
 }
 
 # Install npm modules from Meteor dependent packages. Takes two position arguments:
@@ -84,8 +79,6 @@ function run {
       fi
     fi
   done < '.meteor/packages'
-
-  installMeteorNpm
 }
 
 function usage { echo "Usage: $0 [-p(ull) -r(einstall) -c(lear)]" 1>&2; exit 1; }
