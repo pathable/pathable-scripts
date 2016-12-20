@@ -2,7 +2,7 @@
 
 BLUE='\033[0;34m'
 NC='\033[0m'
-packageDir=$PACKAGE_DIRS
+packageDir=$METEOR_PACKAGE_DIRS
 pull=false
 reinstall=false
 clearPackages=false
