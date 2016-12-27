@@ -8,7 +8,7 @@ reinstall=false
 clearPackages=false
 enforceMaster=true
 defaultGitBranch="master"
-npmCommand="meteor npm"
+npmCommand="yarn"
 
 # Install npm modules. Takes two positional arguments:
 # 1) path where package.json file is located
@@ -17,12 +17,16 @@ function installNpm {
   path=${1-.}
   reinstall=${2-false}
 
+  cd $path
+
   if [ "$reinstall" = true ]; then
-    rm -rf "$path/node_modules"
+    rm -rf node_modules
   fi
 
   printf "${BLUE}Installing npm modules from: %s\n${NC}" "${path##*/}"
-  $npmCommand install --prefix $path
+  $npmCommand install
+
+  cd $OLDPWD
 }
 
 # Pull latest from current branch. Takes one position argument:
