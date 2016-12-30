@@ -8,7 +8,7 @@ reinstall=false
 clearPackages=false
 enforceMaster=true
 defaultGitBranch="master"
-npmCommand="yarn"
+npmCommand="meteor yarn"
 
 # Install npm modules. Takes two positional arguments:
 # 1) path where package.json file is located
