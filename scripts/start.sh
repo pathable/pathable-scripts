@@ -38,6 +38,9 @@ elif [ $runner = "int-test" ]; then
 elif [ $runner = "packages-test" ]; then
   meteor test-packages --driver-package dispatch:mocha-browser ./ --settings $settingsFile --port $PORT --release $METEOR_RELEASE
 
+elif [ $runner = "packages-ci-test" ]; then
+  meteor test-packages --once --driver-package dispatch:mocha-phantomjs ./ --settings $settingsFile --port $PORT --release $METEOR_RELEASE
+
 else
   meteor run $target --settings config/$environment/settings.json --port $PORT &
 
