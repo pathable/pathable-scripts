@@ -6,4 +6,4 @@ environment=${1-staging}
 
 load_env "config/$environment/.env"
 
-meteor deploy $PATHABLE_ADMIN_HOSTNAME --settings config/$environment/settings.json
+meteor deploy $GALAXY_HOSTNAME --settings config/$environment/settings.json
