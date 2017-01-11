@@ -1,11 +1,12 @@
 {
   "name": "pathable-scripts",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Scripts used to manage pathable applications.",
   "author": "Pathable, Inc.",
   "bin": {
     "p-start": "scripts/start.sh",
     "p-install": "scripts/install.sh",
-    "p-deploy": "scripts/deploy.sh"
+    "p-deploy": "scripts/deploy.sh",
+    "p-util": "scripts/util.sh"
   }
 }
