@@ -4,6 +4,10 @@
 . "node_modules/pathable-scripts/scripts/_lib.sh"
 
 environment=${1-staging}
+
+load_env "$HOME/.pathable-env"
+load_env "config/$environment/.env"
+
 currentBranch=$(git rev-parse --abbrev-ref HEAD)
 currentDir=${PWD##*/}
 deployDir=${DEPLOY_DIR-/tmp/pathable-deploy}
@@ -11,9 +15,6 @@ deployBranch=${DEPLOY_BRANCH-master}
 deployPackageDir=$deployDir/packages
 deployAppDir=$deployDir/$currentDir
 packageDir=$METEOR_PACKAGE_DIRS
-
-load_env "$HOME/.pathable-env"
-load_env "config/$environment/.env"
 
 # Clone git repo from one directory into another. Takes three position arguments:
 # 1) directory with existing git repo
