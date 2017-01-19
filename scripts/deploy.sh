@@ -6,12 +6,13 @@
 environment=${1-staging}
 currentBranch=$(git rev-parse --abbrev-ref HEAD)
 currentDir=${PWD##*/}
-deployDir=${PATHABLE_DEPLOY_DIR-/tmp/pathable-deploy}
-deployBranch=${PATHABLE_DEPLOY_BRANCH-master}
+deployDir=${DEPLOY_DIR-/tmp/pathable-deploy}
+deployBranch=${DEPLOY_BRANCH-master}
 deployPackageDir=$deployDir/packages
 deployAppDir=$deployDir/$currentDir
 packageDir=$METEOR_PACKAGE_DIRS
 
+load_env "$HOME/.pathable-env"
 load_env "config/$environment/.env"
 
 # Clone git repo from one directory into another. Takes three position arguments:
@@ -22,8 +23,6 @@ function gitCloneFromDir {
   toDir=$2
   git clone --branch $deployBranch $fromDir $toDir
 }
-
-echo $deployDir
 
 # clear temporary build directory
 if [[ ! "$deployDir" =~ ^/tmp ]]; then
@@ -47,11 +46,6 @@ do
     installNpm $deployPackagePath true
   fi
 done < '.meteor/packages'
-
-if [ "$currentBranch" != "master" ] && [ "$environment" = "production" ]; then
-  echo 'Only `master` branch can be deployed to production.';
-  exit 1;
-fi
 
 METEOR_PACKAGE_DIRS=$deployPackageDir
 ( cd $deployAppDir ; meteor deploy $GALAXY_HOSTNAME --settings config/$environment/settings.json )
