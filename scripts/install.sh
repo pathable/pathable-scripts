@@ -1,27 +1,22 @@
 #!/bin/bash -e
 
+. "node_modules/pathable-scripts/scripts/_env.sh"
+. "node_modules/pathable-scripts/scripts/_lib.sh"
+
+load_env "$HOME/.pathable-env"
+
 BLUE='\033[0;34m'
 NC='\033[0m'
 packageDir=$METEOR_PACKAGE_DIRS
 pull=false
 reinstall=false
 clearPackages=false
-enforceMaster=true
-defaultGitBranch="master"
-
-. "node_modules/pathable-scripts/scripts/_env.sh"
-. "node_modules/pathable-scripts/scripts/_lib.sh"
 
 # Pull latest from current branch. Takes one position argument:
 # 1) directory which should be git updated
 function updateFromGit {
   gitBranch=`git rev-parse --abbrev-ref HEAD`
   gitDir=${1-.}
-
-  if [ "$enforceMaster" = true ] && [ $gitBranch != $defaultGitBranch ]; then
-    echo "$gitDir is not on branch \"$defaultGitBranch\" (it is on $gitBranch)"
-    exit
-  fi
 
   printf "${BLUE}Updating from git: %s\n${NC}" "${gitDir##*/}"
   git -C $gitDir pull
