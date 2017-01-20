@@ -1,44 +1,22 @@
 #!/bin/bash -e
 
+. "node_modules/pathable-scripts/scripts/_env.sh"
+. "node_modules/pathable-scripts/scripts/_lib.sh"
+
+load_env "$HOME/.pathable-env"
+
 BLUE='\033[0;34m'
 NC='\033[0m'
 packageDir=$METEOR_PACKAGE_DIRS
 pull=false
 reinstall=false
 clearPackages=false
-enforceMaster=true
-defaultGitBranch="master"
-npmCommand="yarn"
-
-# Install npm modules. Takes two positional arguments:
-# 1) path where package.json file is located
-# 2) reinstall flag to first clear node_modules directory
-function installNpm {
-  path=${1-.}
-  reinstall=${2-false}
-
-  cd $path
-
-  if [ "$reinstall" = true ]; then
-    rm -rf node_modules
-  fi
-
-  printf "${BLUE}Installing npm modules from: %s\n${NC}" "${path##*/}"
-  $npmCommand install
-
-  cd $OLDPWD
-}
 
 # Pull latest from current branch. Takes one position argument:
 # 1) directory which should be git updated
 function updateFromGit {
   gitBranch=`git rev-parse --abbrev-ref HEAD`
   gitDir=${1-.}
-
-  if [ "$enforceMaster" = true ] && [ $gitBranch != $defaultGitBranch ]; then
-    echo "$gitDir is not on branch \"$defaultGitBranch\" (it is on $gitBranch)"
-    exit
-  fi
 
   printf "${BLUE}Updating from git: %s\n${NC}" "${gitDir##*/}"
   git -C $gitDir pull

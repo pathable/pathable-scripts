@@ -14,6 +14,7 @@ fi
 
 settingsFile=config/$environment/settings.json
 
+load_env "$HOME/.pathable-env"
 load_env "config/.env"
 load_env "config/$environment/.env"
 
