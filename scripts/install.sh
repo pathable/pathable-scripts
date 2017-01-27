@@ -29,6 +29,8 @@ function run {
   pull=${1-false}
   reinstall=${2-false}
 
+  initialize
+
   if [ "$pull" = true ] ; then
     updateFromGit .
   fi
@@ -57,6 +59,7 @@ function run {
       fi
 
       if [ -f "$packagePath/package.json" ]; then
+        initialize $packagePath
         installNpm $packagePath $reinstall
       fi
     fi
