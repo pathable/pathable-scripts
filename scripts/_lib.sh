@@ -38,6 +38,8 @@ function installNpm {
   cd $path
 
   if [ "$reinstall" = true ] && [ -d "./node_modules" ]; then
+    # enable to iterate over hidden files/folders
+    shopt -s dotglob
     for f in node_modules/*; do
       if [ $f != 'node_modules/pathable-scripts' ] && [ $f != 'node_modules/.bin' ]; then
         rm -rf $f
