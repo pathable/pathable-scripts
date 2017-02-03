@@ -1,5 +1,5 @@
-npmCommand="npm"
-npmAddCommand="npm install"
+npmCommand="meteor npm"
+npmAddCommand="meteor npm install"
 
 BLUE='\033[0;34m'
 NC='\033[0m'
@@ -18,9 +18,6 @@ function initialize {
   if meteor yarn info -s | grep -qo "yarn info"; then
     npmCommand="meteor yarn"
     npmAddCommand="meteor yarn add"
-  elif yarn info | grep -qo "yarn info"; then
-    npmCommand="yarn"
-    npmAddCommand="yarn add"
   fi
 
   printf "${BLUE}Command established: %s\n${NC}" "${npmCommand}"
