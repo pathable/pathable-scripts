@@ -5,8 +5,6 @@
 
 load_env "$HOME/.pathable-env"
 
-BLUE='\033[0;34m'
-NC='\033[0m'
 packageDir=$METEOR_PACKAGE_DIRS
 pull=false
 reinstall=false
@@ -29,38 +27,43 @@ function run {
   pull=${1-false}
   reinstall=${2-false}
 
+  initialize .
+
   if [ "$pull" = true ] ; then
     updateFromGit .
   fi
 
-  installNpm . $reinstall
+  ignoreScripts=true
+  installNpm . $reinstall $ignoreScripts
 
-  while read -r line
-  do
-    packagePath=$packageDir/$line
-    packageLocalPath=packages/$line
+  if [ "$fullInstall" = true ] ; then
+    while read -r line
+    do
+      packagePath=$packageDir/$line
+      packageLocalPath=packages/$line
 
-    if [ ! -z "$line" ] && [ -d "$packagePath" ]; then
+      if [ ! -z "$line" ] && [ -d "$packagePath" ]; then
 
-      if [ "$(ls -A $packageLocalPath)" ]; then
-        if [ "$clearPackages" = true ] ; then
-          echo "Removing contents of folder $packageLocalPath"
-          rm -rf $packageLocalPath
-          mkdir $packageLocalPath
-        else
-          >&2 echo "$(tput setaf 1) You have a package installed in the $packageLocalPath directory. You may instead want to set PACKAGES_DIR and manage packages via git instead.$(tput setab 7)"
+        if [ "$(ls -A $packageLocalPath)" ]; then
+          if [ "$clearPackages" = true ] ; then
+            echo "Removing contents of folder $packageLocalPath"
+            rm -rf $packageLocalPath
+            mkdir $packageLocalPath
+          else
+            >&2 echo "$(tput setaf 1) You have a package installed in the $packageLocalPath directory. You may instead want to set PACKAGES_DIR and manage packages via git instead.$(tput setab 7)"
+          fi
+        fi
+
+        if [ "$pull" = true ] && [ -d "$packagePath/.git" ]; then
+          updateFromGit $packagePath
+        fi
+
+        if [ -f "$packagePath/package.json" ]; then
+          installNpm $packagePath $reinstall
         fi
       fi
-
-      if [ "$pull" = true ] && [ -d "$packagePath/.git" ]; then
-        updateFromGit $packagePath
-      fi
-
-      if [ -f "$packagePath/package.json" ]; then
-        installNpm $packagePath $reinstall
-      fi
-    fi
-  done < '.meteor/packages'
+    done < '.meteor/packages'
+  fi
 }
 
 function usage { echo "Usage: $0 [-p(ull) -r(einstall) -c(lear)]" 1>&2; exit 1; }
@@ -70,9 +73,11 @@ while getopts ":prc" opt; do
   case $opt in
     p)
       pull=true
+      fullInstall=true
       ;;
     r)
       reinstall=true
+      fullInstall=true
       ;;
     c)
       clearPackages=true
