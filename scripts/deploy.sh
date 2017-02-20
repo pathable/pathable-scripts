@@ -35,6 +35,7 @@ rm -rf $deployDir; mkdir $deployDir
 # copy application and install dependencies
 gitCloneFromDir . $deployAppDir
 installNpm $deployAppDir true
+updateFromGit $deployAppDir
 
 # copy packages and install dependencies for each
 while read -r line
@@ -45,6 +46,7 @@ do
   if [[ $line == pathable-* ]]; then
     gitCloneFromDir $packagePath $deployPackagePath
     installNpm $deployPackagePath true
+    updateFromGit $deployPackagePath
   fi
 done < '.meteor/packages'
 

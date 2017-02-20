@@ -4,7 +4,6 @@ npmAddCommand="meteor npm install"
 BLUE='\033[0;34m'
 NC='\033[0m'
 
-
 function initialize {
   path=${1-.}
 
@@ -52,4 +51,14 @@ function installNpm {
   fi
 
   cd $OLDPWD
+}
+
+# Pull latest from current branch. Takes one position argument:
+# 1) directory which should be git updated
+function updateFromGit {
+  gitBranch=`git rev-parse --abbrev-ref HEAD`
+  gitDir=${1-.}
+
+  printf "${BLUE}Updating from git: %s\n${NC}" "${gitDir##*/}"
+  git -C $gitDir pull
 }

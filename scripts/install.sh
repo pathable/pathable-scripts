@@ -10,16 +10,6 @@ pull=false
 reinstall=false
 clearPackages=false
 
-# Pull latest from current branch. Takes one position argument:
-# 1) directory which should be git updated
-function updateFromGit {
-  gitBranch=`git rev-parse --abbrev-ref HEAD`
-  gitDir=${1-.}
-
-  printf "${BLUE}Updating from git: %s\n${NC}" "${gitDir##*/}"
-  git -C $gitDir pull
-}
-
 # Install npm modules from Meteor dependent packages. Takes two position arguments:
 # 1) flag to git pull each package first, if possible
 # 2) flag to first clear node_modules directory
