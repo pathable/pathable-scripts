@@ -1,6 +1,6 @@
 {
   "name": "pathable-scripts",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Scripts used to manage pathable applications.",
   "author": "Pathable, Inc.",
   "bin": {

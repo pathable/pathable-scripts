@@ -9,6 +9,7 @@ load_env "$HOME/.pathable-env"
 load_env "config/$environment/.env"
 
 currentBranch=$(git rev-parse --abbrev-ref HEAD)
+currentRemoteOrigin=$(git config --get remote.origin.url)
 currentDir=${PWD##*/}
 deployDir=${DEPLOY_DIR-/tmp/pathable-deploy}
 deployBranch=${DEPLOY_BRANCH-master}
@@ -22,7 +23,7 @@ packageDir=$METEOR_PACKAGE_DIRS
 function gitCloneFromDir {
   fromDir=$1
   toDir=$2
-  git clone --branch $deployBranch $fromDir $toDir
+  git clone $currentRemoteOrigin --branch $deployBranch --single-branch $toDir
 }
 
 # clear temporary build directory
