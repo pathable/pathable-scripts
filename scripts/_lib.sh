@@ -62,3 +62,13 @@ function updateFromGit {
   printf "${BLUE}Updating from git: %s\n${NC}" "${gitDir##*/}"
   git -C $gitDir pull
 }
+
+# Clone git repo from one directory into another. Takes three position arguments:
+# 1) remote origin URL from which to clone
+# 2) directory to which clone should be made
+function cloneFromGit {
+  fromRemoteOrigin=$1
+  branch=$2
+  toDir=$3
+  git clone $fromRemoteOrigin --branch $branch --single-branch $toDir
+}

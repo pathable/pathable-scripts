@@ -4,6 +4,8 @@
 . "node_modules/pathable-scripts/scripts/_lib.sh"
 
 load_env "$HOME/.pathable-env"
+load_env "config/.env"
+load_env "config/$environment/.env"
 
 packageDir=$METEOR_PACKAGE_DIRS
 pull=false
