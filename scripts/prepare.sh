@@ -11,17 +11,6 @@ packageDir=$METEOR_PACKAGE_DIRS
 currentPath=$PWD
 currentDir=${PWD##*/}
 
-# Get the branch to check out
-function getBranch {
-  branch=''
-  if existsBranch $checkoutBranch; then
-    branch=$checkoutBranch
-  else
-    branch=$ancestorBranch
-  fi
-  echo $branch
-}
-
 function prepare {
   package=${1-}
   pull=${2-}
@@ -91,10 +80,21 @@ done
 shift $((OPTIND-1))
 
 checkoutBranch=${1-development}
-ancestorBranch=${2-$(currentAncestorBranch)}
+fallbackBranch=${2-$(currentAncestorBranch)}
+
+# Get the branch to check out
+function getBranch {
+  branch=''
+  if existsBranch $checkoutBranch; then
+    branch=$checkoutBranch
+  else
+    branch=$fallbackBranch
+  fi
+  echo $branch
+}
 
 printf "${BLUE}branch: ${checkoutBranch}\n${NC}"
-printf "${BLUE}ancestor: ${ancestorBranch}\n${NC}"
+printf "${BLUE}fallback: ${fallbackBranch}\n${NC}"
 printf "\n"
 
 prepare $currentDir $pull
