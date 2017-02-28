@@ -122,19 +122,3 @@ function cloneFromGit {
   toDir=$3
   git clone $fromRemoteOrigin --branch $branch --single-branch $toDir
 }
-
-# Clone git repo from one directory into another. Takes three position arguments:
-# 1) the branch
-# 2) the pathable package
-# 2) the path
-function gitCloneBranch {
-  branch=${1-}
-  package=${2-}
-  packagePath=${3-}
-  currentPath=$PWD
-  mkdir $packagePath
-  cd $packagePath
-  git init
-  git remote add -t $branch -f origin https://git@github.com/pathable/$package.git
-  cd $currentPath
-}
