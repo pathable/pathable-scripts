@@ -2,8 +2,7 @@
 
 . "node_modules/pathable-scripts/scripts/_env.sh"
 
-runner=${1-development}
-target=${2-}
+runner=${1-browser}
 
 # development and test configurations available
 if [[ $runner == *"test"* ]]; then
@@ -42,8 +41,14 @@ elif [ $runner = "packages-test" ]; then
 elif [ $runner = "packages-ci-test" ]; then
   meteor test-packages --once --driver-package dispatch:mocha-phantomjs ./ --settings $settingsFile --port $PORT --release $METEOR_RELEASE
 
+elif [ $runner = "ios" ]; then
+  meteor run ios --settings $settingsFile --port $PORT --mobile-server $METEOR_MOBILE_SERVER &
+
+elif [ $runner = "android" ]; then
+  meteor run android --settings $settingsFile --port $PORT --mobile-server $METEOR_MOBILE_SERVER &
+
 else
-  meteor run $target --settings config/$environment/settings.json --port $PORT &
+  meteor run --settings $settingsFile --port $PORT &
 
 fi
 
