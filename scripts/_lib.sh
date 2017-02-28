@@ -1,6 +1,8 @@
 npmCommand="meteor npm"
 npmAddCommand="meteor npm install"
 
+RED='\033[0;31m'
+GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 NC='\033[0m'
 
@@ -53,6 +55,54 @@ function installNpm {
   cd $OLDPWD
 }
 
+# Is the context a Meteor app?
+function isApp {
+  [ -f ".meteor/packages" ]
+}
+
+# Is the context a Meteor app?
+function isPackage {
+  [ -f "package.js" ]
+}
+
+function existsLocalBranch {
+  branch_name=${1-}
+  existsLocally=$(git branch | grep "\b$branch_name$")
+  [ "$existsLocally" ]
+}
+
+function existsRemoteBranch {
+  branch_name=${1-}
+  existsRemotely=$(git branch -r | grep "\borigin/$branch_name$")
+  [ "$existsRemotely" ]
+}
+
+# Does the branch exist in the current git context?
+function existsBranch {
+  branch_name=${1-}
+  $(existsLocalBranch $branch_name) || $(existsRemoteBranch $branch_name)
+}
+
+# Get the ancestor branch
+function ancestorBranch {
+  current_branch=${1-}
+  echo $(git show-branch -a | grep '\*' | grep -v "$current_branch" | head -n1 |  sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//')
+}
+
+# Which is the current ancestor context branch?
+function currentAncestorBranch {
+  current_branch=${1-$(git rev-parse --abbrev-ref HEAD)}
+  if [ $current_branch == "development" ] || [ $current_branch == "master" ]; then
+    echo $current_branch
+  else
+    ancestor=$(ancestorBranch $current_branch)
+    while [ $ancestor != "development" ] && [ $ancestor != "master" ]; do
+      ancestor="$(ancestorBranch $ancestor)"
+    done
+    echo $ancestor
+  fi
+}
+
 # Pull latest from current branch. Takes one position argument:
 # 1) directory which should be git updated
 function updateFromGit {
@@ -71,4 +121,20 @@ function cloneFromGit {
   branch=$2
   toDir=$3
   git clone $fromRemoteOrigin --branch $branch --single-branch $toDir
+}
+
+# Clone git repo from one directory into another. Takes three position arguments:
+# 1) the branch
+# 2) the pathable package
+# 2) the path
+function gitCloneBranch {
+  branch=${1-}
+  package=${2-}
+  packagePath=${3-}
+  currentPath=$PWD
+  mkdir $packagePath
+  cd $packagePath
+  git init
+  git remote add -t $branch -f origin https://git@github.com/pathable/$package.git
+  cd $currentPath
 }
