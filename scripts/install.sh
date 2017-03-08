@@ -11,6 +11,7 @@ packageDir=$METEOR_PACKAGE_DIRS
 pull=false
 reinstall=false
 clearPackages=false
+fullInstall=false
 
 # Install npm modules from Meteor dependent packages. Takes two position arguments:
 # 1) flag to git pull each package first, if possible
