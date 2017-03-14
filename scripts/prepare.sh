@@ -34,7 +34,7 @@ function prepareDependencies {
   packagePath=$packageDir/$package
   if [ ! -d "$packagePath" ]; then
     branch=$(getBranch)
-    git clone https://git@github.com/pathable/$package.git $packagePath
+    git clone https://github.com/pathable/$package.git $packagePath
   fi
   cd $packagePath
   prepare $package $pull
