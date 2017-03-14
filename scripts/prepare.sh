@@ -21,6 +21,7 @@ function prepare {
   if [ "$pull" = true ]; then
     if existsRemoteBranch $branch; then
       if git status -uno | grep -qo "nothing to commit"; then
+        git branch --set-upstream-to=origin/$branch $branch
         git pull
       fi
     fi
