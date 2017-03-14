@@ -91,9 +91,13 @@ function ancestorBranch {
 
 # Which is the current ancestor context branch?
 function currentAncestorBranch {
-  current_branch=${1-$(git rev-parse --abbrev-ref HEAD)}
+  current_branch=${1-}
   if [ $current_branch == "development" ] || [ $current_branch == "master" ]; then
     echo $current_branch
+  elif echo $current_branch | grep -q -e "feature" -e "release"; then
+    echo "development"
+  elif echo $current_branch | grep -q "hotfix"; then
+    echo "master"
   else
     ancestor=$(ancestorBranch $current_branch)
     while [ $ancestor != "development" ] && [ $ancestor != "master" ]; do
