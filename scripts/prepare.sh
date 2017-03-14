@@ -79,8 +79,8 @@ while getopts ":prc" opt; do
 done
 shift $((OPTIND-1))
 
-checkoutBranch=${1-development}
-fallbackBranch=${2-$(currentAncestorBranch)}
+checkoutBranch=${1-$(git rev-parse --abbrev-ref HEAD)}
+fallbackBranch=${2-$(currentAncestorBranch $checkoutBranch)}
 
 # Get the branch to check out
 function getBranch {
