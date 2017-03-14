@@ -89,7 +89,11 @@ function getBranch {
   if existsBranch $checkoutBranch; then
     branch=$checkoutBranch
   else
-    branch=$fallbackBranch
+    if existsBranch $fallbackBranch; then
+      branch=$fallbackBranch
+    else
+      branch="master"
+    fi
   fi
   echo $branch
 }
