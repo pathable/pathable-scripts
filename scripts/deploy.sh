@@ -18,6 +18,9 @@ deployPackageDir=$deployDir/packages
 deployAppDir=$deployDir/$currentDir
 packageDir=$METEOR_PACKAGE_DIRS
 
+# fix: https://github.com/meteor/meteor/issues/8157
+export TOOL_NODE_FLAGS="--max-old-space-size=4096"
+
 # clear temporary build directory
 if [[ ! "$deployDir" =~ ^/tmp ]]; then
   echo 'PATHABLE_DEPLOY_DIR must be scoped to /tmp';
