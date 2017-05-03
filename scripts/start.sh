@@ -39,7 +39,7 @@ elif [ $runner = "packages-test" ]; then
   meteor test-packages --driver-package dispatch:mocha-browser ./ --settings $settingsFile --port $PORT --release $METEOR_RELEASE
 
 elif [ $runner = "packages-ci-test" ]; then
-  TEST_BROWSER_DRIVER=phantomjs meteor test-packages --once --driver-package dispatch:mocha ./ --settings $settingsFile --port $PORT --release $METEOR_RELEASE
+  TEST_CLIENT=0 meteor test-packages --once --driver-package dispatch:mocha ./ --settings $settingsFile --port $PORT --release $METEOR_RELEASE
 
 elif [ $runner = "ios" ]; then
   meteor run ios --settings $settingsFile --port $PORT --mobile-server $METEOR_MOBILE_SERVER &
