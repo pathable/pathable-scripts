@@ -26,7 +26,7 @@ if [ $runner = "test" ]; then
   meteor test --driver-package dispatch:mocha-browser --settings $settingsFile --port $PORT &
 
 elif [ $runner = "ci-test" ]; then
-  meteor test --driver-package dispatch:mocha --settings $settingsFile --port $PORT --once &
+  TEST_CLIENT=0 meteor test --driver-package dispatch:mocha --settings $settingsFile --port $PORT --once &
 
 elif [ $runner = "app-test" ]; then
   meteor test --driver-package tmeasday:acceptance-test-driver --settings $settingsFile --port $PORT --full-app &
