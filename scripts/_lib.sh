@@ -47,9 +47,9 @@ function installNpm {
 
   printf "${BLUE}Installing npm modules from: %s\n${NC}" "${path##*/}"
   if [ "$ignoreScripts" = true ]; then
-    $npmCommand install --ignore-scripts
+    $npmCommand install --ignore-scripts --production
   else
-    $npmCommand install
+    $npmCommand install --production
   fi
 
   cd $OLDPWD
