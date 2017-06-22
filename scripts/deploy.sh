@@ -3,37 +3,35 @@
 . "node_modules/pathable-scripts/scripts/_env.sh"
 . "node_modules/pathable-scripts/scripts/_lib.sh"
 
-environment=${1-staging}
-
-load_env "$HOME/.pathable-env"
-load_env "config/.env"
-load_env "config/$environment/.env"
-
-repositoryName=$(basename `git rev-parse --show-toplevel`)
-gitRemoteOrigin=$GIT_REMOTE_ORIGIN
-currentDir=${PWD##*/}
-deployDir=${DEPLOY_DIR-/tmp/pathable-deploy}
-deployBranch=${DEPLOY_BRANCH-master}
-deployPackageDir=$deployDir/packages
-deployAppDir=$deployDir/$currentDir
-packageDir=$METEOR_PACKAGE_DIRS
-
 # fix: https://github.com/meteor/meteor/issues/8157
 export TOOL_NODE_FLAGS="--max-old-space-size=4096"
-
-# clear temporary build directory
-if [[ ! "$deployDir" =~ ^/tmp ]]; then
-  echo 'PATHABLE_DEPLOY_DIR must be scoped to /tmp';
-  exit 1;
-fi
 
 # Install npm modules from Meteor dependent packages. Takes two position arguments:
 # 1) flag to git pull each package first, if possible
 # 2) flag to first clear node_modules directory
 function run {
-  clear=${1-false}
-  reinstall=${2-false}
+  environment=${1-staging}
+  clear=${2-false}
+  reinstall=${3-false}
 
+  load_env "$HOME/.pathable-env"
+  load_env "config/.env"
+  load_env "config/$environment/.env"
+
+  repositoryName=$(basename `git rev-parse --show-toplevel`)
+  gitRemoteOrigin=$GIT_REMOTE_ORIGIN
+  currentDir=${PWD##*/}
+  deployDir=${DEPLOY_DIR-/tmp/pathable-deploy}
+  deployBranch=${DEPLOY_BRANCH-master}
+  deployPackageDir=$deployDir/packages
+  deployAppDir=$deployDir/$currentDir
+  packageDir=$METEOR_PACKAGE_DIRS
+
+  # clear temporary build directory
+  if [[ ! "$deployDir" =~ ^/tmp ]]; then
+    echo 'PATHABLE_DEPLOY_DIR must be scoped to /tmp';
+    exit 1;
+  fi
   if [ "$clear" = true ] ; then
     rm -rf $deployDir; mkdir $deployDir
     cloneFromGit $gitRemoteOrigin/$repositoryName $deployBranch $deployAppDir
@@ -66,17 +64,15 @@ function run {
   METEOR_PACKAGE_DIRS=$packageDir
 }
 
-function usage { echo "Usage: $0 [-c(lear)]" 1>&2; exit 1; }
+function usage { echo "Usage: $0 [-c(lear) -r(einstall)]" 1>&2; exit 1; }
 
-# parse optional parameters
 while getopts ":rc" opt; do
   case $opt in
     r)
       reinstall=true
-      fullInstall=true
       ;;
     c)
-      clearPackages=true
+      clear=true
       ;;
     *)
       usage
@@ -86,4 +82,5 @@ done
 shift $((OPTIND-1))
 
 # do run run, do run run
-run $clear $reinstall
+echo "WARNING: deploys hard coded to staging currently, please fix"
+run "staging" $clear $reinstall
