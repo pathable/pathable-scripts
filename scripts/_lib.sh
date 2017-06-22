@@ -1,3 +1,5 @@
+#!/bin/bash -e
+
 npmCommand="meteor npm"
 npmAddCommand="meteor npm install"
 

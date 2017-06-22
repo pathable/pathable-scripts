@@ -26,25 +26,64 @@ if [[ ! "$deployDir" =~ ^/tmp ]]; then
   echo 'PATHABLE_DEPLOY_DIR must be scoped to /tmp';
   exit 1;
 fi
-rm -rf $deployDir; mkdir $deployDir
 
-# copy application and install dependencies
-cloneFromGit $gitRemoteOrigin/$repositoryName $deployBranch $deployAppDir
-installNpm $deployAppDir true
-updateFromGit $deployAppDir
+# Install npm modules from Meteor dependent packages. Takes two position arguments:
+# 1) flag to git pull each package first, if possible
+# 2) flag to first clear node_modules directory
+function run {
+  clear=${1-false}
+  reinstall=${2-false}
 
-# copy packages and install dependencies for each
-while read -r line
-do
-  deployPackagePath=$deployPackageDir/$line
-
-  if [[ $line == pathable-* ]]; then
-    cloneFromGit $gitRemoteOrigin/$line $deployBranch $deployPackagePath
-    installNpm $deployPackagePath true
-    updateFromGit $deployPackagePath
+  if [ "$clear" = true ] ; then
+    rm -rf $deployDir; mkdir $deployDir
+    cloneFromGit $gitRemoteOrigin/$repositoryName $deployBranch $deployAppDir
+  else
+    updateFromGit $deployAppDir
   fi
-done < '.meteor/packages'
 
-METEOR_PACKAGE_DIRS=$deployPackageDir
-( cd $deployAppDir ; meteor deploy $GALAXY_HOSTNAME --settings config/$environment/settings.json )
-METEOR_PACKAGE_DIRS=$packageDir
+  # copy application and install dependencies
+  installNpm $deployAppDir $reinstall
+  updateFromGit $deployAppDir
+
+  # copy packages and install dependencies for each
+  while read -r line
+  do
+    deployPackagePath=$deployPackageDir/$line
+
+    if [[ $line == pathable-* ]]; then
+      if [ "$clear" = true ] ; then
+        cloneFromGit $gitRemoteOrigin/$line $deployBranch $deployPackagePath
+      else
+        updateFromGit $deployPackagePath
+      fi
+      installNpm $deployPackagePath $reinstall
+      updateFromGit $deployPackagePath
+    fi
+  done < '.meteor/packages'
+
+  METEOR_PACKAGE_DIRS=$deployPackageDir
+  ( cd $deployAppDir ; meteor deploy $GALAXY_HOSTNAME --settings config/$environment/settings.json )
+  METEOR_PACKAGE_DIRS=$packageDir
+}
+
+function usage { echo "Usage: $0 [-c(lear)]" 1>&2; exit 1; }
+
+# parse optional parameters
+while getopts ":rc" opt; do
+  case $opt in
+    r)
+      reinstall=true
+      fullInstall=true
+      ;;
+    c)
+      clearPackages=true
+      ;;
+    *)
+      usage
+      ;;
+  esac
+done
+shift $((OPTIND-1))
+
+# do run run, do run run
+run $clear $reinstall
