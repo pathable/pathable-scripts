@@ -3,6 +3,7 @@
 . "node_modules/pathable-scripts/scripts/_env.sh"
 
 runner=${1-browser}
+package=${2-}
 
 # development and test configurations available
 if [[ $runner == *"test"* ]]; then
@@ -16,6 +17,11 @@ settingsFile=config/$environment/settings.json
 load_env "$HOME/.pathable-env"
 load_env "config/.env"
 load_env "config/$environment/.env"
+
+if [ $runner = "packages-test" ] || [ $runner = "packages-ci-test" ] && [ -z "$package" ]; then
+  echo "Please, specify the package to test, and run on an app context."
+  exit
+fi
 
 if ! type "redis-server" > /dev/null; then
   echo "Redis is required but it doesn't appear to be installed. Once running be sure to set REDIS_HOST and REDIS_PORT."
@@ -36,10 +42,10 @@ elif [ $runner = "int-test" ]; then
   node_modules/.bin/chimp --ddp=$ROOT_URL --watch --cucumber --path=tests &
 
 elif [ $runner = "packages-test" ]; then
-  meteor test-packages --driver-package dispatch:mocha-browser ./ --settings $settingsFile --port $PORT --release $METEOR_RELEASE
+  meteor test-packages --driver-package dispatch:mocha-browser $package --settings $settingsFile --port $PORT
 
 elif [ $runner = "packages-ci-test" ]; then
-  TEST_CLIENT=0 meteor test-packages --once --driver-package dispatch:mocha ./ --settings $settingsFile --port $PORT --release $METEOR_RELEASE
+  TEST_CLIENT=0 meteor test-packages --once --driver-package dispatch:mocha $package --settings $settingsFile --port $PORT
 
 elif [ $runner = "ios" ]; then
   meteor run ios --settings $settingsFile --port $PORT --mobile-server $METEOR_MOBILE_SERVER &
