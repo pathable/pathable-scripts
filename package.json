@@ -5,6 +5,7 @@
   "author": "Pathable, Inc.",
   "bin": {
     "p-start": "scripts/start.sh",
+    "p-debug": "scripts/debug.sh",
     "p-install": "scripts/install.sh",
     "p-prepare": "scripts/prepare.sh",
     "p-deploy": "scripts/deploy.sh",
