@@ -59,6 +59,8 @@ function preparePackageDependencies {
   cat 'package.js' | grep "api.use([\'\"]pathable-\w*[\'\"]);" | sort | uniq | while read -r line
   do
     package=$(sed -n "s/^api.use([\'\"]\(pathable\-.*\)[\'\"]);$/\1/p" <<< "${line}")
+    echo "Pareparing package dependency: "
+    echo $package
     if [ ! -z "$package" ]; then
       prepareDependencies $package $pull
     fi
