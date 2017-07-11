@@ -81,7 +81,7 @@ done
 shift $((OPTIND-1))
 
 checkoutBranch=${1-$(git rev-parse --abbrev-ref HEAD)}
-fallbackBranch=${2-$(currentAncestorBranch $checkoutBranch)}
+fallbackBranch="development"
 
 # Get the branch to check out
 function getBranch {
