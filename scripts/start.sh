@@ -44,10 +44,10 @@ elif [ $runner = "int-test" ]; then
   node_modules/.bin/chimp --ddp=$ROOT_URL --watch --cucumber --path=tests &
 
 elif [ $runner = "packages-test" ]; then
-  meteor test-packages --driver-package dispatch:mocha-browser $package --settings $settingsFile --port $PORT
+  meteor test-packages --driver-package dispatch:mocha-browser $package --settings $settingsFile --port $PORT --release $METEOR_RELEASE
 
 elif [ $runner = "packages-ci-test" ]; then
-  TEST_CLIENT=0 meteor test-packages --once --driver-package dispatch:mocha $package --settings $settingsFile --port $PORT
+  TEST_CLIENT=0 meteor test-packages --once --driver-package dispatch:mocha $package --settings $settingsFile --port $PORT --release $METEOR_RELEASE
 
 elif [ $runner = "ios" ]; then
   meteor run ios --settings $settingsFile --port $PORT --mobile-server $METEOR_MOBILE_SERVER &
