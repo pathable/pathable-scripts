@@ -2,8 +2,6 @@
 
 . "node_modules/pathable-scripts/scripts/_env.sh"
 
-echo ">>>>>>>> Using scripts of ci-test branch <<<<<<<<<"
-
 runner=${1-browser}
 package=${2-}
 
