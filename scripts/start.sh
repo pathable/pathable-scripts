@@ -42,9 +42,11 @@ elif [ $runner = "int-test" ]; then
   node_modules/.bin/chimp --ddp=$ROOT_URL --watch --cucumber --path=tests &
 
 elif [ $runner = "packages-test" ]; then
+  # Don't remove --release option, it is required for run CI tests properly
   meteor test-packages --driver-package dispatch:mocha-browser $package --settings $settingsFile --port $PORT --release $METEOR_RELEASE
 
 elif [ $runner = "packages-ci-test" ]; then
+  # Don't remove --release option, it is required for run CI tests properly
   TEST_CLIENT=0 meteor test-packages --once --driver-package dispatch:mocha $package --settings $settingsFile --port $PORT --release $METEOR_RELEASE
 
 elif [ $runner = "ios" ]; then
