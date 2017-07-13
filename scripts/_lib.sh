@@ -103,7 +103,13 @@ function currentAncestorBranch {
   else
     ancestor=$(ancestorBranch $current_branch)
     while [ $ancestor != "development" ] && [ $ancestor != "master" ]; do
-      ancestor="$(ancestorBranch $ancestor)"
+      if existsBranch $ancestor; then
+        ancestor="$(ancestorBranch $ancestor)"
+      elif existsBranch "development"; then
+        ancestor="development"
+      else
+        ancestor="master"
+      fi
     done
     echo $ancestor
   fi
