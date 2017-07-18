@@ -18,6 +18,8 @@ function run {
   load_env "config/.env"
   load_env "config/$environment/.env"
 
+  echo "Deploying with from $DEPLOY_BRANCH to environment $environment..."
+
   repositoryName=$(basename `git rev-parse --show-toplevel`)
   gitRemoteOrigin=$GIT_REMOTE_ORIGIN
   currentDir=${PWD##*/}
