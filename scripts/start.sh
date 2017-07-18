@@ -3,7 +3,7 @@
 . "node_modules/pathable-scripts/scripts/_env.sh"
 
 runner=${1-browser}
-package=${2-}
+package=${2-./}
 
 # development and test configurations available
 if [[ $runner == *"test"* ]]; then
