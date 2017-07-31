@@ -29,11 +29,6 @@ function run {
   deployAppDir=$deployDir/$currentDir
   packageDir=$METEOR_PACKAGE_DIRS
 
-  # clear temporary build directory
-  if [[ ! "$deployDir" =~ ^/tmp ]]; then
-    echo 'PATHABLE_DEPLOY_DIR must be scoped to /tmp';
-    exit 1;
-  fi
   if [ "$clear" = true ] ; then
     rm -rf $deployDir; mkdir $deployDir
     cloneFromGit $gitRemoteOrigin/$repositoryName $deployBranch $deployAppDir
