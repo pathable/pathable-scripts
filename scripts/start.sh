@@ -55,8 +55,8 @@ elif [ $runner = "ios" ]; then
 elif [ $runner = "android" ]; then
   meteor run android --settings $settingsFile --port $PORT --mobile-server $METEOR_MOBILE_SERVER &
 
-elif [ $runner = "production" ]; then
-  meteor run --settings $settingsFile --port $PORT --production &
+elif [ $runner = "bundle-visualizer" ]; then
+  meteor run --settings $settingsFile --port $PORT --extra-packages bundle-visualizer --production &
 
 else
   meteor run --settings $settingsFile --port $PORT &
