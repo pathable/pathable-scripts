@@ -55,6 +55,9 @@ elif [ $runner = "ios" ]; then
 elif [ $runner = "android" ]; then
   meteor run android --settings $settingsFile --port $PORT --mobile-server $METEOR_MOBILE_SERVER &
 
+elif [ $runner = "production" ]; then
+  meteor run --settings $settingsFile --port $PORT --production &
+
 else
   meteor run --settings $settingsFile --port $PORT &
 
