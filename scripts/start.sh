@@ -32,7 +32,7 @@ if [ $runner = "test" ]; then
   meteor test --driver-package dispatch:mocha-browser --settings $settingsFile --port $PORT &
 
 elif [ $runner = "ci-test" ]; then
-  meteor test --driver-package dispatch:mocha-phantomjs --settings $settingsFile --port $PORT --once &
+  TEST_BROWSER_DRIVER=phantomjs meteor test --driver-package dispatch:mocha --settings $settingsFile --port $PORT --once &
 
 elif [ $runner = "app-test" ]; then
   meteor test --driver-package tmeasday:acceptance-test-driver --settings $settingsFile --port $PORT --full-app &
@@ -47,7 +47,7 @@ elif [ $runner = "packages-test" ]; then
 
 elif [ $runner = "packages-ci-test" ]; then
   # Don't remove --release option, it is required for run CI tests properly
-  TEST_CLIENT=0 meteor test-packages --once --driver-package dispatch:mocha-phantomjs $package --settings $settingsFile --port $PORT --release $METEOR_RELEASE
+  TEST_CLIENT=0 TEST_BROWSER_DRIVER=phantomjs meteor test-packages --once --driver-package dispatch:mocha $package --settings $settingsFile --port $PORT --release $METEOR_RELEASE
 
 elif [ $runner = "ios" ]; then
   meteor run ios --settings $settingsFile --port $PORT --mobile-server $METEOR_MOBILE_SERVER &
