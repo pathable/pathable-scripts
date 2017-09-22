@@ -60,12 +60,12 @@ shift
 command="'$*'"
 currentPath=$(pwd)
 
-for d in $rootDir/*
+for d in $rootDir*
   do
     if shouldRun $target "$d"; then
       cd "$d"
-      printf "${BLUE}Running command in "$(basename $d)":\n"
-      eval $command
+      printf "${BLUE}Running command in "$(basename $d)":\n${NC}"
+      eval "'$command'"
     fi
   done
 cd $currentPath
