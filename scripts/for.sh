@@ -57,7 +57,7 @@ function shouldRun {
 
 target="$1"
 shift
-command="$@"
+command="'$*'"
 currentPath=$(pwd)
 
 for d in $rootDir/*
