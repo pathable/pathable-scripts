@@ -30,6 +30,11 @@ function shouldRun {
   target="$1"
   dir="$2"
 
+  if [[ "$(basename $d)" == pathable-* ]]
+  then
+    return 1
+  fi
+
   if [ "$target" == "apps" ]; then
     if isAppDir "$dir"; then
       return 0
