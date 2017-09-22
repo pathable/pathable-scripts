@@ -9,6 +9,7 @@ Scripts included in `node_modules/.bin` are:
 1. p-start
 2. p-install
 3. p-deploy
+4. p-for
 
 ## Configuration
 
