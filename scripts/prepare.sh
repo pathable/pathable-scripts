@@ -56,7 +56,7 @@ function prepareAppDependencies {
 # Prepare app packages from a Meteor app
 function preparePackageDependencies {
   pull=${1-}
-  cat 'package.js' | grep "api.use([\'\"]pathable-\w*[\'\"]);" | sort | uniq | while read -r line
+  cat 'package.js' | grep "api.use([\'\"]pathable\-.*[\'\"]);" | sort | uniq | while read -r line
   do
     package=$(sed -n "s/^api.use([\'\"]\(pathable\-.*\)[\'\"]);$/\1/p" <<< "${line}")
     if [ ! -z "$package" ]; then

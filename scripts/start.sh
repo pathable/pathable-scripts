@@ -3,7 +3,7 @@
 . "node_modules/pathable-scripts/scripts/_env.sh"
 
 runner=${1-browser}
-package=${2-}
+package=${2-./}
 
 # development and test configurations available
 if [[ $runner == *"test"* ]]; then
@@ -32,7 +32,7 @@ if [ $runner = "test" ]; then
   meteor test --driver-package dispatch:mocha-browser --settings $settingsFile --port $PORT &
 
 elif [ $runner = "ci-test" ]; then
-  TEST_CLIENT=0 meteor test --driver-package dispatch:mocha --settings $settingsFile --port $PORT --once &
+  TEST_BROWSER_DRIVER=phantomjs meteor test --driver-package dispatch:mocha --settings $settingsFile --port $PORT --once &
 
 elif [ $runner = "app-test" ]; then
   meteor test --driver-package tmeasday:acceptance-test-driver --settings $settingsFile --port $PORT --full-app &
@@ -47,13 +47,16 @@ elif [ $runner = "packages-test" ]; then
 
 elif [ $runner = "packages-ci-test" ]; then
   # Don't remove --release option, it is required for run CI tests properly
-  TEST_CLIENT=0 meteor test-packages --once --driver-package dispatch:mocha $package --settings $settingsFile --port $PORT --release $METEOR_RELEASE
+  TEST_CLIENT=0 TEST_BROWSER_DRIVER=phantomjs meteor test-packages --once --driver-package dispatch:mocha $package --settings $settingsFile --port $PORT --release $METEOR_RELEASE
 
 elif [ $runner = "ios" ]; then
   meteor run ios --settings $settingsFile --port $PORT --mobile-server $METEOR_MOBILE_SERVER &
 
 elif [ $runner = "android" ]; then
   meteor run android --settings $settingsFile --port $PORT --mobile-server $METEOR_MOBILE_SERVER &
+
+elif [ $runner = "bundle-visualizer" ]; then
+  meteor run --settings $settingsFile --port $PORT --extra-packages bundle-visualizer --production &
 
 else
   meteor run --settings $settingsFile --port $PORT &

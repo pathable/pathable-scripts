@@ -18,6 +18,8 @@ function run {
   load_env "config/.env"
   load_env "config/$environment/.env"
 
+  echo "Deploying from $DEPLOY_BRANCH to environment $environment..."
+
   repositoryName=$(basename `git rev-parse --show-toplevel`)
   gitRemoteOrigin=$GIT_REMOTE_ORIGIN
   currentDir=${PWD##*/}
@@ -27,11 +29,6 @@ function run {
   deployAppDir=$deployDir/$currentDir
   packageDir=$METEOR_PACKAGE_DIRS
 
-  # clear temporary build directory
-  if [[ ! "$deployDir" =~ ^/tmp ]]; then
-    echo 'PATHABLE_DEPLOY_DIR must be scoped to /tmp';
-    exit 1;
-  fi
   if [ "$clear" = true ] ; then
     rm -rf $deployDir; mkdir $deployDir
     cloneFromGit $gitRemoteOrigin/$repositoryName $deployBranch $deployAppDir
@@ -66,6 +63,9 @@ function run {
 
 function usage { echo "Usage: $0 [-c(lear) -r(einstall)]" 1>&2; exit 1; }
 
+environment=${1-staging}
+shift 1
+
 while getopts ":rc" opt; do
   case $opt in
     r)
@@ -81,6 +81,8 @@ while getopts ":rc" opt; do
 done
 shift $((OPTIND-1))
 
-# do run run, do run run
-echo "WARNING: deploys hard coded to staging currently, please fix"
-run "staging" $clear $reinstall
+if [ $environment = "staging" ] || [ $environment = "production" ]; then
+  run $environment $clear $reinstall
+else
+  echo "Not a valid environment" &
+fi
