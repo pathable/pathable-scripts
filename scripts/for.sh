@@ -30,7 +30,7 @@ function shouldRun {
   target="$1"
   dir="$2"
 
-  if [[ "$(basename $d)" == pathable-* ]]
+  if [[ "$(basename $d)" != pathable-* ]]
   then
     return 1
   fi
