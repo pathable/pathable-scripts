@@ -43,7 +43,7 @@ function run {
             rm -rf $packageLocalPath
             mkdir $packageLocalPath
           else
-            >&2 echo "$(tput setaf 1) You have a package installed in the $packageLocalPath directory. You may instead want to set PACKAGES_DIR and manage packages via git instead.$(tput setab 7)"
+            >&2 echo "$(tput setaf 1) You have a package installed in the $packageLocalPath directory. You may instead want to set METEOR_PACKAGES_DIR and manage packages via git instead.$(tput setab 7)"
           fi
         fi
 

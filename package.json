@@ -9,6 +9,7 @@
     "p-install": "scripts/install.sh",
     "p-prepare": "scripts/prepare.sh",
     "p-deploy": "scripts/deploy.sh",
-    "p-util": "scripts/util.sh"
+    "p-util": "scripts/util.sh",
+    "p-for": "scripts/for.sh"
   }
 }
