@@ -22,13 +22,13 @@ export default function createTag(repositoryName, repositoryPath) {
     }),
   };
 
-  return fetchGithub(url, options).then(() => {
+  return fetchGithub(url, options).then((response) => {
     url = `https://api.github.com/repos/pathable/${repositoryName}/git/refs`;
     options = {
       method: 'POST',
       body: JSON.stringify({
         ref: `refs/tags/${tagName}`,
-        sha: hash,
+        sha: response.sha,
       }),
     };
 
