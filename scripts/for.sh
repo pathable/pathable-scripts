@@ -70,7 +70,7 @@ for d in $rootDir*
     if shouldRun $target "$d"; then
       cd "$d"
       printf "${BLUE}Running command in "$(basename $d)":\n${NC}"
-      eval "'$command'"
+      eval "'$command'" || true
     fi
   done
 cd $currentPath
