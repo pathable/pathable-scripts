@@ -1,7 +1,7 @@
 import path from 'path';
 import { spawnWithLog } from '../shared';
 
-import { getRemoteBuildStatus } from '../misc';
+import { getRemoteBuildStatus } from '../github';
 
 export default function packageTest(repositoryName, repositoryPath, envVariables) {
   return getRemoteBuildStatus(repositoryName, repositoryPath).then((status) => {

@@ -16,10 +16,11 @@ import {
   installNpmDependencies,
   runUnitTests,
   deployToServer,
+  tagRepositories,
 } from './tasks';
 import { getRepositoriesByName } from '../configuration';
 import { loggedInToMeteor } from '../utilities/meteor';
-import { getAppsToBuild, getDependencies } from '../utilities/misc';
+import { getAppsToBuild, getDependencies, getTagMessage } from '../utilities/misc';
 
 console.log(chalk.yellow('Checking meteor logged in status...'));
 const loggedIn = loggedInToMeteor();
@@ -54,6 +55,10 @@ if (!loggedIn) {
         const repositoryNames = apps.concat(packages);
         appRepositories = getRepositoriesByName(apps);
         repositories = getRepositoriesByName(repositoryNames);
+
+        process.env.TAG_NAME = inputs.tagName;
+        process.env.TAG_MESSAGE = getTagMessage(repositories);
+
         return checkoutBranches(repositories);
       })
       .then(() => pullLatestChanges(repositories))
@@ -62,6 +67,7 @@ if (!loggedIn) {
       .then(() => installNpmDependencies(repositories))
       .then(() => runUnitTests(inputs, repositories))
       .then(() => deployToServer(appRepositories))
+      .then(() => tagRepositories(appRepositories))
       .then(() => {
         console.log(chalk.green('Finished deployment.'));
       })

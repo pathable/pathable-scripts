@@ -8,3 +8,4 @@ export { default as loadEnvironmentVariables } from './load-env-variables';
 export { default as installNpmDependencies } from './install-npm-dependencies';
 export { default as runUnitTests } from './run-unit-tests';
 export { default as deployToServer } from './deploy-to-server';
+export { default as tagRepositories } from './tag-repositories';
