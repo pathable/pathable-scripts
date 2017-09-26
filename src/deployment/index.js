@@ -41,6 +41,7 @@ if (!loggedIn) {
       process.env.GITHUB_TOKEN = globalEnv.GITHUB_TOKEN;
     }
 
+    process.env.TOOL_NODE_FLAGS = '--max-old-space-size=4096';
     process.env.METEOR_PACKAGE_DIRS = deploymentRoot;
     process.env.DEPLOYMENT_ROOT = deploymentRoot;
     process.env.LOGS_ROOT = logsRoot;
