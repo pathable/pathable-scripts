@@ -8,8 +8,8 @@ load_env "config/$environment/.env"
 
 rootDir=$METEOR_PACKAGE_DIRS
 
-USAGE="Usage: npm run for <all/apps/packages/> command\n"
-HELP="To get a list of available command aliases: npm run for --help\n"
+USAGE="Usage: npm run for <all/apps/packages/> command"
+HELP="To get a list of available command aliases: npm run for commands"
 
 function isAppDir {
   result=$(find "$1" -maxdepth 1 -type d -name ".meteor")
@@ -57,13 +57,13 @@ function shouldRun {
       return 1
     fi
   fi
-  echo -e "$USAGE"
-  echo -e "$HELP"
+  echo "$USAGE"
+  echo "$HELP"
   return 1
 }
 
 function getHelp {
-  echo "$USAGE"
+  echo "$USAGE\n"
   echo "Available command aliases:\n"
   IFS="="
   while read -r name value
