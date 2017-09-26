@@ -8,7 +8,8 @@ load_env "config/$environment/.env"
 
 rootDir=$METEOR_PACKAGE_DIRS
 
-USAGE="Usage: npm run for <all/apps/packages/> command"
+USAGE="Usage: npm run for <all/apps/packages/> command\n"
+HELP="To get a list of available command aliases: npm run for --help\n"
 
 function isAppDir {
   result=$(find "$1" -maxdepth 1 -type d -name ".meteor")
@@ -56,14 +57,47 @@ function shouldRun {
       return 1
     fi
   fi
-  echo $USAGE
+  echo -e "$USAGE"
+  echo -e "$HELP"
   return 1
+}
+
+function getHelp {
+  echo "$USAGE"
+  echo "Available command aliases:\n"
+  IFS="="
+  while read -r name value
+  do
+    echo "${BLUE}${name} : ${NC}${value}\n"
+  done < "node_modules/pathable-scripts/scripts/config/command-aliases.cfg"
+}
+
+function getAliasCommand {
+  command="$1"
+  IFS="="
+  while read -r name value
+  do
+    if [ "$command" == "'$name'" ]; then
+      echo "'${value}'"
+      return 0
+    fi
+  done < "node_modules/pathable-scripts/scripts/config/command-aliases.cfg"
 }
 
 target="$1"
 shift
 command="'$*'"
 currentPath=$(pwd)
+
+if [ $target == "help" ] || [ $target == "-help" ] || [ $target == "--help" ]; then
+  echo -e $(getHelp)
+  exit
+fi
+
+aliasCommand=$(getAliasCommand "$command")
+if [ -n "${aliasCommand}" ]; then
+  command="$aliasCommand"
+fi
 
 for d in $rootDir*
   do
