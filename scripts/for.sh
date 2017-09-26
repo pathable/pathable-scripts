@@ -89,7 +89,7 @@ shift
 command="'$*'"
 currentPath=$(pwd)
 
-if [ $target == "help" ] || [ $target == "-help" ] || [ $target == "--help" ]; then
+if [ $target == "help" ] || [ $target == "commands" ]; then
   echo -e $(getHelp)
   exit
 fi
