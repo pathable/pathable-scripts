@@ -69,7 +69,7 @@ function getHelp {
   while read -r name value
   do
     echo "${BLUE}${name} : ${NC}${value}\n"
-  done < "node_modules/pathable-scripts/scripts/config/command-aliases.cfg"
+  done < "node_modules/pathable-scripts/config/command-aliases.cfg"
 }
 
 function getAliasCommand {
@@ -81,7 +81,7 @@ function getAliasCommand {
       echo "'${value}'"
       return 0
     fi
-  done < "node_modules/pathable-scripts/scripts/config/command-aliases.cfg"
+  done < "node_modules/pathable-scripts/config/command-aliases.cfg"
 }
 
 target="$1"
