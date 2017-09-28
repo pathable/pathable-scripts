@@ -14,7 +14,11 @@ export default function deployToServer(appRepositories) {
       console.log(`Deploying ${repository.name}`);
       const repositoryPath = path.join(deploymentRoot, repository.localPath);
       const envVariables = repository.envVariables;
-      return deployToGalaxy(repository.name, repositoryPath, envVariables);
+      return deployToGalaxy(repository.name, repositoryPath, envVariables).then((code) => {
+        if (code && code !== 0) {
+          console.log(`Deployment of ${repository.name} failed.`);
+        }
+      });
     });
   });
 

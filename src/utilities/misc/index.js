@@ -1,6 +1,9 @@
+export { default as createDeployDirectory } from './create-deploy-directory';
+export { default as createLogsDirectory } from './create-logs-directory';
 export { default as getDependencies } from './get-dependencies';
 export { default as getAppsToBuild } from './get-apps-to-build';
 export { default as getAppDependencies } from './get-app-dependencies';
+export { default as loadGlobalVariables } from './load-global-variables';
 export { default as loadVariables } from './load-variables';
 export { default as updatePackageJson } from './update-package-json';
 export { default as getTagMessage } from './get-tag-message';

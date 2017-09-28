@@ -6,10 +6,8 @@ import dotenv from 'dotenv';
 
 import inputSchema from './input-schema';
 import {
-  createDeployDirectory,
-  createLogsDirectory,
   cloneRepositories,
-  checkoutBranches,
+  checkoutSources,
   pullLatestChanges,
   updatePackageJsons,
   loadEnvironmentVariables,
@@ -20,7 +18,13 @@ import {
 } from './tasks';
 import { getRepositoriesByName } from '../configuration';
 import { loggedInToMeteor } from '../utilities/meteor';
-import { getAppsToBuild, getDependencies, getTagMessage } from '../utilities/misc';
+import {
+  createDeployDirectory,
+  createLogsDirectory,
+  getAppsToBuild,
+  getDependencies,
+  getTagMessage,
+} from '../utilities/misc';
 
 console.log(chalk.yellow('Checking meteor logged in status...'));
 const loggedIn = loggedInToMeteor();
@@ -31,8 +35,8 @@ if (!loggedIn) {
 
   prompt.get(inputSchema, (err, inputs) => {
     const appRoot = path.resolve(path.join(__dirname, '../../'));
-    const deploymentRoot = createDeployDirectory(inputs, appRoot);
-    const logsRoot = createLogsDirectory(inputs, appRoot);
+    const deploymentRoot = createDeployDirectory(appRoot);
+    const logsRoot = createLogsDirectory(appRoot);
 
     const globalEnvFile = path.resolve(path.join(process.env.HOME, '.pathable-env'));
     if (fs.existsSync(globalEnvFile)) {
@@ -60,7 +64,7 @@ if (!loggedIn) {
         process.env.TAG_NAME = inputs.tagName;
         process.env.TAG_MESSAGE = getTagMessage(repositories);
 
-        return checkoutBranches(repositories);
+        return checkoutSources(repositories);
       })
       .then(() => pullLatestChanges(repositories))
       .then(() => updatePackageJsons(repositories))
@@ -68,7 +72,7 @@ if (!loggedIn) {
       .then(() => installNpmDependencies(repositories))
       .then(() => runUnitTests(inputs, repositories))
       .then(() => deployToServer(appRepositories))
-      .then(() => tagRepositories(repositories))
+      // .then(() => tagRepositories(repositories))
       .then(() => {
         console.log(chalk.green('Finished deployment.'));
       })

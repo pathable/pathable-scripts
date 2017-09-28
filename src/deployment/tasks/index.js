@@ -1,7 +1,6 @@
-export { default as checkoutBranches } from './checkout-branches';
+export { default as checkoutSources } from './checkout-sources';
+export { default as getTagsList } from './get-tags-list';
 export { default as cloneRepositories } from './clone-repositories';
-export { default as createDeployDirectory } from './create-deploy-directory';
-export { default as createLogsDirectory } from './create-logs-directory';
 export { default as pullLatestChanges } from './pull-latest-changes';
 export { default as updatePackageJsons } from './update-package-jsons';
 export { default as loadEnvironmentVariables } from './load-env-variables';

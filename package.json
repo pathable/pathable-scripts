@@ -16,7 +16,9 @@
     "lint": "eslint . --ext js",
     "build": "babel src -d dist",
     "start": "node ./dist/deployment/index.js",
-    "cmd-deploy": "node ./dist/deployment/index.js",
+    "create-staging-tags": "node ./dist/deployment/create-staging-tags/index.js",
+    "create-production-tags": "node ./dist/deployment/create-production-tags/index.js",
+    "deploy-to-staging": "node ./dist/deployment/deploy-to-staging/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -27,6 +29,7 @@
     "es6-promise": "^4.1.1",
     "lodash": "^4.17.4",
     "mkdirp": "^0.5.1",
+    "moment": "^2.18.1",
     "node-fetch": "^1.7.3",
     "prompt": "^1.0.0"
   },
