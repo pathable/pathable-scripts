@@ -1,10 +1,12 @@
 export { default as checkoutSources } from './checkout-sources';
+export { default as checkoutTag } from './checkout-tag';
 export { default as getTagsList } from './get-tags-list';
 export { default as cloneRepositories } from './clone-repositories';
 export { default as pullLatestChanges } from './pull-latest-changes';
 export { default as updatePackageJsons } from './update-package-jsons';
-export { default as loadEnvironmentVariables } from './load-env-variables';
+export { default as loadEnvVariables } from './load-env-variables';
 export { default as installNpmDependencies } from './install-npm-dependencies';
 export { default as runUnitTests } from './run-unit-tests';
 export { default as deployToServer } from './deploy-to-server';
 export { default as tagRepositories } from './tag-repositories';
+export { default as injectTagNameIntoSettings } from './inject-tag-name-into-settings';

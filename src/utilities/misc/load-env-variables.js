@@ -8,7 +8,7 @@ import dotenv from 'dotenv';
  * final environment variables.
  * @param {*} repositoryPath
  */
-export default function loadVariables(repositoryPath) {
+export default function loadEnvVariables(repositoryPath) {
   const deploymentTarget = process.env.DEPLOYMENT_TARGET;
 
   const rootEnvFile = path.join(repositoryPath, 'config', '.env');

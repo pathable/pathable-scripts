@@ -1,7 +1,7 @@
 import btoa from 'btoa';
 import fetch from 'node-fetch';
 
-export default function curlGithub(url, options = {}) {
+export default function fetchGithub(url, options = {}) {
   const userName = process.env.GITHUB_USERNAME;
   const token = process.env.GITHUB_TOKEN;
 

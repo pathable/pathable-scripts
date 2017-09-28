@@ -9,8 +9,9 @@ import {
   getTagsList,
   checkoutTag,
   updatePackageJsons,
-  loadEnvironmentVariables,
+  loadEnvVariables,
   installNpmDependencies,
+  injectTagNameIntoSettings,
   runUnitTests,
   deployToServer,
 } from '../tasks';
@@ -66,10 +67,11 @@ if (globalVariablesLoaded && loggedIn) {
           appRepositories = getRepositoriesByName(appNames);
           repositories = getRepositoriesByName(repositoryNames);
 
-          return updatePackageJsons(repositories, inputs.tagName)
-            .then(() => checkoutTag(repositories))
-            .then(() => loadEnvironmentVariables(repositories))
-            .then(() => installNpmDependencies(repositories))
+          checkoutTag(repositories, inputs.tagName);
+          updatePackageJsons(repositories);
+          loadEnvVariables(repositories);
+          injectTagNameIntoSettings(appRepositories, inputs.tagName);
+          return installNpmDependencies(repositories)
             .then(() => runUnitTests(inputs, repositories))
             .then(() => deployToServer(appRepositories));
         })

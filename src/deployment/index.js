@@ -10,7 +10,7 @@ import {
   checkoutSources,
   pullLatestChanges,
   updatePackageJsons,
-  loadEnvironmentVariables,
+  loadEnvVariables,
   installNpmDependencies,
   runUnitTests,
   deployToServer,
@@ -68,7 +68,7 @@ if (!loggedIn) {
       })
       .then(() => pullLatestChanges(repositories))
       .then(() => updatePackageJsons(repositories))
-      .then(() => loadEnvironmentVariables(repositories))
+      .then(() => loadEnvVariables(repositories))
       .then(() => installNpmDependencies(repositories))
       .then(() => runUnitTests(inputs, repositories))
       .then(() => deployToServer(appRepositories))
