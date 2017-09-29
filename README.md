@@ -34,12 +34,12 @@ The utility will check the login status at startup and exit if you are not logge
 
 ## Create Tag for Staging Deployment
 
-npm run create-staging-tags
+`npm run create-staging-tags`
 This creates a tag on all repositories which we can then use in the next step for deployment.
 
 ## Deployment to Staging
 
-npm run deploy-to-staging
+`npm run deploy-to-staging`
 This allows us to select a tag for deployment to staging. 
 We can also select which of the apps we want to deploy, and whether we want to run
 unit tests for the selected apps and packages.
