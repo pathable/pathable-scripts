@@ -29,8 +29,9 @@ The utility will check the login status at startup and exit if you are not logge
 
 ## Build & Run
 
-1. Install dependencies for this CLI utility using `npm install`.
-2. Build the utility using `npm run build`.
+1. Clone this repository to a local folder.
+2. Install dependencies for this CLI utility using `npm install`.
+3. Build the utility using `npm run build`.
 
 ## Create Tag for Staging Deployment
 
