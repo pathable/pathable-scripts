@@ -35,11 +35,16 @@ The utility will check the login status at startup and exit if you are not logge
 ## Create Tag for Staging Deployment
 
 `npm run create-staging-tags`
+
 This creates a tag on all repositories which we can then use in the next step for deployment.
+The default naming convention suggested by the utility is of the format staging-{YYMMDD}-{HHmm}.
+'YYMMDD' is year, month and date. 'HHmm' is hours and minutes. The latter has just been added in
+case we have to make multiple deployments in a single day.
 
 ## Deployment to Staging
 
 `npm run deploy-to-staging`
+
 This allows us to select a tag for deployment to staging. 
 We can also select which of the apps we want to deploy, and whether we want to run
 unit tests for the selected apps and packages.
