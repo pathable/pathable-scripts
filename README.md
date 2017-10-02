@@ -54,9 +54,28 @@ If you choose to run the unit tests for the apps/packages, the utility first che
 status of the selected tag with github. If the build status for the tag is set to 'success', then
 it skips running the unit tests for it locally.
 
+## Create Tag for Production Deployment
+
+`npm run create-production-tags`
+
+This creates a tag on all repositories which we can then use in the next step for deployment.
+The default naming convention suggested by the utility is of the format production-{YYMMDD}-{HHmm}.
+'YYMMDD' is year, month and date. 'HHmm' is hours and minutes. The latter has just been added in
+case we have to make multiple deployments in a single day.
+
 ## Deployment to Production
 
-## Link Galaxy Container to the deployment tag
+`npm run deploy-to-production`
+
+This allows us to select a tag for deployment to production. 
+We can also select which of the apps we want to deploy, and whether we want to run
+unit tests for the selected apps and packages.
+
+If you choose to run the unit tests for the apps/packages, the utility first checks the build
+status of the selected tag with github. If the build status for the tag is set to 'success', then
+it skips running the unit tests for it locally.
+
+## Linking Galaxy Container to the Deployment Tag
 
 During deployment, the utility adds a property named 'tagName' to the public section of the
 settings.json file, with value set to the name of the tag that was used to build the app.
@@ -65,6 +84,8 @@ name of the "tag" that was used to build it.
 
 ## In case of errors...
 
-Check the logs folder for logs file. The utility creates multiple logs file pertaining to each step
-of each repository. So for instance, when running `npm install` on `pathable-admin`, it would
-generate a log file by the name `pathable-admin-npm-install.log`.
+For tasks that are run synchronously, the error output is directly logged to the console. For some of
+the long running tasks (like 'npm install'), we spawn child processes to run them. These tasks do not
+print their outout to our terminal. Instead they create log files with in the 'logs' folder.
+Multiple log files pertaining to each of these child processes are created.. So for instance, when
+running `npm install` on `pathable-admin`, it would generate a log file by the name `pathable-admin-npm-install.log`.
