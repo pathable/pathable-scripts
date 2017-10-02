@@ -13,7 +13,7 @@ export default function packageTest(repositoryName, repositoryPath, envVariables
     }
 
     const settingsFile = path.join(repositoryPath, 'config', 'test', 'settings.json');
-    const logFileName = `unit-test-${repositoryName}.log`;
+    const logFileName = `${repositoryName}-unit-test.log`;
     return spawnWithLog(logFileName, repositoryPath, 'meteor', [
       'test-packages',
       '--driver-package',

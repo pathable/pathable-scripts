@@ -14,7 +14,7 @@ export default function applicationTest(repositoryName, repositoryPath, envVaria
 
     const deploymentTarget = process.env.DEPLOYMENT_TARGET;
     const settingsFile = path.join(repositoryPath, 'config', deploymentTarget, 'settings.json');
-    const logFileName = `unit-test-${repositoryName}.log`;
+    const logFileName = `${repositoryName}-unit-test.log`;
     return spawnWithLog(logFileName, repositoryPath, 'meteor', [
       'test',
       '--driver-package',
