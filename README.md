@@ -75,6 +75,15 @@ If you choose to run the unit tests for the apps/packages, the utility first che
 status of the selected tag with github. If the build status for the tag is set to 'success', then
 it skips running the unit tests for it locally.
 
+## Parallel Deployments
+
+Running the unit tests and deploying the apps to Galaxy are both long running tasks that take up
+significant amount of memory and processing power. By default, both of these are run in serial for
+all the apps.
+However, if the system has enough RAM to spare, these can be set to run in parallel by answering 'y'
+to the relevant propmt at startup.
+
+
 ## Linking Galaxy Container to the Deployment Tag
 
 During deployment, the utility adds a property named 'tagName' to the public section of the
