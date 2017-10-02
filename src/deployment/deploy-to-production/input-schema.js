@@ -62,6 +62,14 @@ const inputSchema = {
       enum: ['y', 'n'],
       required: true,
     },
+    doParallelDeployments: {
+      default: 'n',
+      description: 'Run scripts in parallel where possible. (y)es or (n)o.',
+      message: 'Invalid option. Press "y" or "n"',
+      type: 'string',
+      enum: ['y', 'n'],
+      required: true,
+    },
   },
 };
 

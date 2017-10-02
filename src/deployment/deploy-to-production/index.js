@@ -43,7 +43,7 @@ if (globalVariablesLoaded && loggedIn) {
         injectTagNameIntoSettings(appRepositories, inputs.tagName);
         return installNpmDependencies(repositories)
           .then(() => runUnitTests(inputs, repositories))
-          .then(() => deployToServer(appRepositories));
+          .then(() => deployToServer(appRepositories, inputs.doParallelDeployments));
       })
       .then(() => {
         console.log(chalk.green('Finished deployment.'));
