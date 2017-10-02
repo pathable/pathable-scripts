@@ -54,6 +54,10 @@ If you choose to run the unit tests for the apps/packages, the utility first che
 status of the selected tag with github. If the build status for the tag is set to 'success', then
 it skips running the unit tests for it locally.
 
+The final prompt in the inputs is if you want to do the actual deployment to the server. If you are only
+running the scripts for testing, you can answer no to that question, and the final step (deployment to 
+galaxy servers) will be skipped.
+ 
 ## Create Tag for Production Deployment
 
 `npm run create-production-tags`

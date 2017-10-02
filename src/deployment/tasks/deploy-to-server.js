@@ -16,9 +16,14 @@ function deployRepositoryToServer(deploymentRoot, repository) {
   });
 }
 
-export default function deployToServer(appRepositories, runInParallel) {
+export default function deployToServer(appRepositories, runInParallel, skipActualDeployment) {
   console.log(chalk.yellow('Deploying to Server...'));
   const deploymentRoot = process.env.DEPLOYMENT_ROOT;
+
+  if (skipActualDeployment === 'y') {
+    console.log('Skipping deployment because of user input.');
+    return Promise.resolve();
+  }
 
   if (runInParallel === 'n') {
     // Run the individual deplyToGalaxy steps serially

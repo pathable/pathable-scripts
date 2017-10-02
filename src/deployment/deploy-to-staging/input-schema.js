@@ -70,6 +70,14 @@ const inputSchema = {
       enum: ['y', 'n'],
       required: true,
     },
+    skipActualDeployment: {
+      default: 'n',
+      description: 'Skip actually deploying to the servers. (y)es or (n)o.',
+      message: 'Invalid option. Press "y" or "n"',
+      type: 'string',
+      enum: ['y', 'n'],
+      required: true,
+    },
   },
 };
 
