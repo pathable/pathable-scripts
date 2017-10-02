@@ -1,12 +1,10 @@
-import path from 'path';
 import prompt from 'prompt';
 import chalk from 'chalk';
 
 import inputSchema from './input-schema';
+import { getRepositoriesByName } from '../../configuration';
 import {
-  cloneRepositories,
-  checkoutSources,
-  getTagsList,
+  startupTasks,
   checkoutTag,
   updatePackageJsons,
   loadEnvVariables,
@@ -16,15 +14,8 @@ import {
   deployToServer,
 } from '../tasks';
 
-import { getAllRepositories, getAppRepositories, getRepositoriesByName } from '../../configuration';
 import { loggedInToMeteor } from '../../utilities/meteor';
-import {
-  createDeployDirectory,
-  createLogsDirectory,
-  getAppsToBuild,
-  getDependencies,
-  loadGlobalVariables,
-} from '../../utilities/misc';
+import { getAppsToBuild, getDependencies, loadGlobalVariables } from '../../utilities/misc';
 
 let loggedIn;
 
@@ -36,50 +27,29 @@ if (globalVariablesLoaded) {
 }
 
 if (globalVariablesLoaded && loggedIn) {
-  const allRepositories = getAllRepositories();
-  const allAppRepositories = getAppRepositories();
-  const appRoot = path.resolve(path.join(__dirname, '../../../'));
-  const deploymentRoot = createDeployDirectory(appRoot);
-  const logsRoot = createLogsDirectory(appRoot);
+  startupTasks('staging').then(() => {
+    prompt.start();
+    prompt
+      .get(inputSchema, (err, inputs) => {
+        const appNames = getAppsToBuild(inputs);
+        const packageNames = getDependencies(appNames);
+        const repositoryNames = appNames.concat(packageNames);
+        const appRepositories = getRepositoriesByName(appNames);
+        const repositories = getRepositoriesByName(repositoryNames);
 
-  // These environment variables are used by the meteor build utility
-  process.env.TOOL_NODE_FLAGS = '--max-old-space-size=4096';
-  process.env.METEOR_PACKAGE_DIRS = deploymentRoot;
-  // These environment variables are for internal use of this utility
-  process.env.DEPLOYMENT_ROOT = deploymentRoot;
-  process.env.LOGS_ROOT = logsRoot;
-  process.env.DEPLOYMENT_TARGET = 'staging';
-
-  let repositories;
-  let appRepositories;
-
-  cloneRepositories()
-    .then(() => checkoutSources(allRepositories))
-    .then(() => {
-      getTagsList(allAppRepositories);
-
-      prompt.start();
-      prompt
-        .get(inputSchema, (err, inputs) => {
-          const appNames = getAppsToBuild(inputs);
-          const packageNames = getDependencies(appNames);
-          const repositoryNames = appNames.concat(packageNames);
-          appRepositories = getRepositoriesByName(appNames);
-          repositories = getRepositoriesByName(repositoryNames);
-
-          checkoutTag(repositories, inputs.tagName);
-          updatePackageJsons(repositories);
-          loadEnvVariables(repositories);
-          injectTagNameIntoSettings(appRepositories, inputs.tagName);
-          return installNpmDependencies(repositories)
-            .then(() => runUnitTests(inputs, repositories))
-            .then(() => deployToServer(appRepositories));
-        })
-        .then(() => {
-          console.log(chalk.green('Finished deployment.'));
-        })
-        .catch((error) => {
-          if (error) console.log(chalk.red(error));
-        });
-    });
+        checkoutTag(repositories, inputs.tagName);
+        updatePackageJsons(repositories);
+        loadEnvVariables(repositories);
+        injectTagNameIntoSettings(appRepositories, inputs.tagName);
+        return installNpmDependencies(repositories)
+          .then(() => runUnitTests(inputs, repositories))
+          .then(() => deployToServer(appRepositories));
+      })
+      .then(() => {
+        console.log(chalk.green('Finished deployment.'));
+      })
+      .catch((error) => {
+        if (error) console.log(chalk.red(error));
+      });
+  });
 }

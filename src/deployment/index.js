@@ -72,7 +72,7 @@ if (!loggedIn) {
       .then(() => installNpmDependencies(repositories))
       .then(() => runUnitTests(inputs, repositories))
       .then(() => deployToServer(appRepositories))
-      // .then(() => tagRepositories(repositories))
+      // .then(() => tagRepositories(repositories, inputs.tagName))
       .then(() => {
         console.log(chalk.green('Finished deployment.'));
       })

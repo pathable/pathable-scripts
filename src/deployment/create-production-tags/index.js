@@ -13,9 +13,7 @@ if (globalVariablesLoaded) {
   prompt.start();
   prompt.get(inputSchema, (err, inputs) => {
     const repositories = getAllRepositories();
-    process.env.TAG_NAME = inputs.tagName;
-
-    tagRepositories(repositories)
+    tagRepositories(repositories, inputs.tagName)
       .then(() => {
         console.log(chalk.green('Finished creating production tags.'));
       })

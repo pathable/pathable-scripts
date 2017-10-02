@@ -19,6 +19,7 @@
     "create-staging-tags": "node ./dist/deployment/create-staging-tags/index.js",
     "create-production-tags": "node ./dist/deployment/create-production-tags/index.js",
     "deploy-to-staging": "node ./dist/deployment/deploy-to-staging/index.js",
+    "remove-tags": "node ./dist/deployment/remove-tags/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

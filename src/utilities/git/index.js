@@ -6,3 +6,4 @@ export { default as gitIsUpdated } from './git-is-updated';
 export { default as gitGetHash } from './git-get-hash';
 export { default as gitRemoteUpdate } from './git-remote-update';
 export { default as gitGetTagsList } from './git-get-tags-list';
+export { default as gitTagDelete } from './git-tag-delete';

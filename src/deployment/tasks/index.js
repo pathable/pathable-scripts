@@ -9,4 +9,6 @@ export { default as installNpmDependencies } from './install-npm-dependencies';
 export { default as runUnitTests } from './run-unit-tests';
 export { default as deployToServer } from './deploy-to-server';
 export { default as tagRepositories } from './tag-repositories';
+export { default as removeTagFromRepositories } from './remove-tag-from-repositories';
 export { default as injectTagNameIntoSettings } from './inject-tag-name-into-settings';
+export { default as startupTasks } from './startup-tasks';

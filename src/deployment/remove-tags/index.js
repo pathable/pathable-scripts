@@ -2,8 +2,8 @@ import prompt from 'prompt';
 import chalk from 'chalk';
 
 import inputSchema from './input-schema';
-import { startupTasks, tagRepositories } from '../tasks';
 import { getAllRepositories } from '../../configuration';
+import { startupTasks, removeTagFromRepositories } from '../tasks';
 import { loadGlobalVariables } from '../../utilities/misc';
 
 console.log(chalk.yellow('Getting github credentials from environment file...'));
@@ -14,9 +14,11 @@ if (globalVariablesLoaded) {
     prompt.start();
     prompt.get(inputSchema, (err, inputs) => {
       const repositories = getAllRepositories();
-      return tagRepositories(repositories, inputs.tagName)
+      const tagName = inputs.tagName;
+
+      removeTagFromRepositories(repositories, tagName)
         .then(() => {
-          console.log(chalk.green('Finished creating staging tags.'));
+          console.log(chalk.green('Finished removing tags.'));
         })
         .catch((error) => {
           if (error) console.log(chalk.red(error));
