@@ -4,6 +4,7 @@ import chalk from 'chalk';
 import inputSchema from './input-schema';
 import { getRepositoriesByName } from '../../configuration';
 import {
+  loadGlobalVariables,
   startupTasks,
   checkoutTag,
   updatePackageJsons,
@@ -15,11 +16,10 @@ import {
 } from '../tasks';
 
 import { loggedInToMeteor } from '../../utilities/meteor';
-import { getAppsToBuild, getDependencies, loadGlobalVariables } from '../../utilities/misc';
+import { getAppsToBuild, getDependencies } from '../../utilities/misc';
 
 let loggedIn;
 
-console.log(chalk.yellow('Getting github credentials from environment file...'));
 const globalVariablesLoaded = loadGlobalVariables();
 if (globalVariablesLoaded) {
   console.log(chalk.yellow('Checking meteor logged in status...'));

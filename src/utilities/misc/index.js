@@ -3,7 +3,6 @@ export { default as createLogsDirectory } from './create-logs-directory';
 export { default as getDependencies } from './get-dependencies';
 export { default as getAppsToBuild } from './get-apps-to-build';
 export { default as getAppDependencies } from './get-app-dependencies';
-export { default as loadGlobalVariables } from './load-global-variables';
 export { default as loadEnvVariables } from './load-env-variables';
 export { default as injectTagNameIntoSettings } from './inject-tag-name-into-settings';
 export { default as updatePackageJson } from './update-package-json';

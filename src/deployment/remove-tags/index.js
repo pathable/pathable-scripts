@@ -3,10 +3,8 @@ import chalk from 'chalk';
 
 import inputSchema from './input-schema';
 import { getAllRepositories } from '../../configuration';
-import { startupTasks, removeTagFromRepositories } from '../tasks';
-import { loadGlobalVariables } from '../../utilities/misc';
+import { loadGlobalVariables, startupTasks, removeTagFromRepositories } from '../tasks';
 
-console.log(chalk.yellow('Getting github credentials from environment file...'));
 const globalVariablesLoaded = loadGlobalVariables();
 
 if (globalVariablesLoaded) {

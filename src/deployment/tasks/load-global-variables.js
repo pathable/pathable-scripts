@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import dotenv from 'dotenv';
+import chalk from 'chalk';
 
 /**
  * Load the global environment variables specified in the ~/.pathable-env file. Specifically we need
@@ -9,6 +10,7 @@ import dotenv from 'dotenv';
 export default function loadGlobalVariables() {
   let result = true;
 
+  console.log(chalk.yellow('Getting github credentials from environment file...'));
   const globalEnvFile = path.resolve(path.join(process.env.HOME, '.pathable-env'));
   if (fs.existsSync(globalEnvFile)) {
     const globalEnv = dotenv.parse(fs.readFileSync(globalEnvFile));
