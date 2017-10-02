@@ -99,7 +99,7 @@ if [ -n "${aliasCommand}" ]; then
   command="$aliasCommand"
 fi
 
-for d in $rootDir*
+for d in $rootDir/*
   do
     if shouldRun $target "$d"; then
       cd "$d"
