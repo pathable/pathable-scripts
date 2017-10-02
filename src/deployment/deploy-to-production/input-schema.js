@@ -1,15 +1,7 @@
 const inputSchema = {
   properties: {
-    deploymentTarget: {
-      default: 'staging',
-      description: 'Deployment Target - staging or production',
-      message: 'Invalid deployment target',
-      type: 'string',
-      enum: ['staging', 'production'],
-      required: true,
-    },
     tagName: {
-      description: 'Tag name for tagging the repositories',
+      description: 'Select tag name for deployment',
       message: 'Invalid tag name',
       type: 'string',
       required: true,
@@ -70,9 +62,9 @@ const inputSchema = {
       enum: ['y', 'n'],
       required: true,
     },
-    ignorePackageUnitTestFailures: {
-      default: 'y',
-      description: 'Igonre package unit test failures. (y)es or (n)o.',
+    doParallelDeployments: {
+      default: 'n',
+      description: 'Run scripts in parallel where possible. (y)es or (n)o.',
       message: 'Invalid option. Press "y" or "n"',
       type: 'string',
       enum: ['y', 'n'],
