@@ -11,6 +11,7 @@ import {
   loadEnvVariables,
   installNpmDependencies,
   injectTagNameIntoSettings,
+  removeMinifier,
   runUnitTests,
   deployToServer,
 } from '../tasks';
@@ -41,6 +42,7 @@ if (globalVariablesLoaded && loggedIn) {
         updatePackageJsons(repositories);
         loadEnvVariables(repositories);
         injectTagNameIntoSettings(appRepositories, inputs.tagName);
+        removeMinifier(appRepositories, inputs.minimizeCode);
         return installNpmDependencies(repositories)
           .then(() => runUnitTests(inputs, repositories))
           .then(() => deployToServer(appRepositories, inputs.doParallelDeployments));

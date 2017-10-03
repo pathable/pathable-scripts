@@ -7,3 +7,4 @@ export { default as loadEnvVariables } from './load-env-variables';
 export { default as injectTagNameIntoSettings } from './inject-tag-name-into-settings';
 export { default as updatePackageJson } from './update-package-json';
 export { default as getTagMessage } from './get-tag-message';
+export { default as removeMinifier } from './remove-minifier';
