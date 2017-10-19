@@ -2,7 +2,12 @@ import prompt from 'prompt';
 import chalk from 'chalk';
 
 import inputSchema from './input-schema';
-import { loadGlobalVariables, startupTasks, tagRepositories } from '../tasks';
+import {
+  loadGlobalVariables,
+  startupTasks,
+  tagRepositories,
+  mergeBranchIntoMaster,
+} from '../tasks';
 import { getAllRepositories } from '../../configuration';
 
 const globalVariablesLoaded = loadGlobalVariables();
@@ -12,7 +17,8 @@ if (globalVariablesLoaded) {
     prompt.start();
     prompt.get(inputSchema, (err, inputs) => {
       const repositories = getAllRepositories();
-      return tagRepositories(repositories, inputs.tagName)
+      return mergeBranchIntoMaster(repositories, inputs.branchToMerge)
+        .then(() => tagRepositories(repositories, inputs.tagName))
         .then(() => {
           console.log(chalk.green('Finished creating production tags.'));
         })

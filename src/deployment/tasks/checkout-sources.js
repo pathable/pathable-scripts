@@ -11,11 +11,10 @@ import { gitCheckoutBranch, gitRemoteUpdate, gitPull } from '../../utilities/git
  * - Switches to the appropriate branch by using 'git checkout -f {branch-name}'
  * - Pulls in the latest changes using 'git pull'
  * @param {*} repositories
+ * @param {*} branchName
  */
-export default function checkoutSources(repositories) {
+export default function checkoutSources(repositories, branchName) {
   const deploymentRoot = process.env.DEPLOYMENT_ROOT;
-  const deploymentTarget = process.env.DEPLOYMENT_TARGET;
-  const branchName = deploymentTarget === 'staging' ? 'development' : 'master';
   console.log(chalk.yellow(`Switching to ${branchName} branch for all repositories.`));
 
   const promises = map(repositories, (repository) => {

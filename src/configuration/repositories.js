@@ -87,6 +87,13 @@ const Repositories = [
     testPackage: true,
   },
   {
+    name: 'pathable-importer',
+    isApp: false,
+    remoteUrl: 'https://github.com/pathable/pathable-importer.git',
+    localPath: 'pathable-importer',
+    testPackage: true,
+  },
+  {
     name: 'pathable-vendor',
     isApp: false,
     remoteUrl: 'https://github.com/pathable/pathable-vendor.git',

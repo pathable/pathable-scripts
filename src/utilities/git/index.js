@@ -7,3 +7,5 @@ export { default as gitGetHash } from './git-get-hash';
 export { default as gitRemoteUpdate } from './git-remote-update';
 export { default as gitGetTagsList } from './git-get-tags-list';
 export { default as gitTagDelete } from './git-tag-delete';
+export { default as gitMerge } from './git-merge';
+export { default as gitPushBranch } from './git-push-branch';

@@ -19,6 +19,9 @@ export default function startupTasks(deploymentTarget) {
   process.env.DEPLOYMENT_TARGET = deploymentTarget;
 
   return cloneRepositories()
-    .then(() => checkoutSources(allRepositories))
+    .then(() => {
+      const branchName = deploymentTarget === 'staging' ? 'development' : 'master';
+      return checkoutSources(allRepositories, branchName);
+    })
     .then(() => getTagsList(allRepositories));
 }

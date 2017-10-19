@@ -13,3 +13,4 @@ export { default as injectTagNameIntoSettings } from './inject-tag-name-into-set
 export { default as startupTasks } from './startup-tasks';
 export { default as loadGlobalVariables } from './load-global-variables';
 export { default as removeMinifier } from './remove-minifier';
+export { default as mergeBranchIntoMaster } from './merge-branch-into-master';
