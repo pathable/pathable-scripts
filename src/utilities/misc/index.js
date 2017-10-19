@@ -1,4 +1,4 @@
-export { default as createDeployDirectory } from './create-deploy-directory';
+export { createDeployDirectory, createDeployDirectoryForHeroku } from './create-deploy-directory';
 export { default as createLogsDirectory } from './create-logs-directory';
 export { default as getDependencies } from './get-dependencies';
 export { default as getAppsToBuild } from './get-apps-to-build';
