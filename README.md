@@ -8,14 +8,31 @@ Scripts included in `node_modules/.bin` are:
 
 1. p-start
 2. p-install
-3. p-deploy
-4. p-for
+3. p-for
 
 ## Configuration
 
 Env VARS will first be loaded from `~/.pathable-env`. Then from `config/<environment>/.env` in the current directory.
 
-# Pathable-CLI
+# Pathable-CLI for Development
+
+All the development commands work run against your working development folder. They assume that all your applications and the packages exist in the same folder. They pick the name of the folder from the ~/.pathable-env file from the `METEOR_PACKAGE_DIRS` variable.
+
+## Build & Run
+
+1. Clone this repository to a local folder.
+2. Install dependencies for this CLI utility using `npm install`.
+3. Build the utility using `npm run build`.
+
+## Custom Command
+
+`npm run custom-command`
+
+This is similar in functionality to what `p-for` command provides. It allows running a command against all of the repositories.
+ 
+# Pathable-CLI for Deployment
+
+All the deployment commands create a deploy folder within the pathable-scripts folder where they clone all the source code repositories for performing actions on them e.g. creating tags, merging branches, building and deploying. This enables running deploy commands without disturbing your development working folder.
 
 In order to perform deployment, you need to be logged into your meteor account on your computer.
 The utility will check the login status at startup and exit if you are not logged in. Use
@@ -26,12 +43,6 @@ The utility will check the login status at startup and exit if you are not logge
 1. Create a personal access token in your github account.
 2. Add the generated token to ~/.pathable-env file as 'GITHUB_TOKEN'.
 3. Add your github username to ~/.pathable-env file as 'GITHUB_USERNAME'.
-
-## Build & Run
-
-1. Clone this repository to a local folder.
-2. Install dependencies for this CLI utility using `npm install`.
-3. Build the utility using `npm run build`.
 
 ## Create Tag for Staging Deployment
 
@@ -62,6 +73,8 @@ This creates a tag on all repositories which we can then use in the next step fo
 The default naming convention suggested by the utility is of the format production-{YYMMDD}-{HHmm}.
 'YYMMDD' is year, month and date. 'HHmm' is hours and minutes. The latter has just been added in
 case we have to make multiple deployments in a single day.
+
+It also gives you an opportunity to merge any branch into the master branch, before creating the tag. In case the code that needs to be deployed has already been merged into master, you can skip this. If you do provide a branch name, the utility will get the lastest code from that branch, merge it into master branch, commit and push the changes back to the server, before creating the tag.
 
 ## Deployment to Production
 
