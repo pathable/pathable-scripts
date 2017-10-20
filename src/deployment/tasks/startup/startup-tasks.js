@@ -1,12 +1,12 @@
 import path from 'path';
 
-import { getAllRepositories } from '../../configuration';
-import { cloneRepositories, checkoutSources, getTagsList } from './';
-import { createDeployDirectory, createLogsDirectory } from '../../utilities/misc';
+import { getAllRepositories } from '../../../configuration';
+import { cloneRepositories, checkoutSources, getTagsList, getBranchNames } from './';
+import { createDeployDirectory, createLogsDirectory } from '../../../utilities/misc';
 
 export default function startupTasks(deploymentTarget) {
   const allRepositories = getAllRepositories();
-  const appRoot = path.resolve(path.join(__dirname, '../../../'));
+  const appRoot = path.resolve(path.join(__dirname, '../../../../'));
   const deploymentRoot = createDeployDirectory(appRoot);
   const logsRoot = createLogsDirectory(appRoot);
 
@@ -23,5 +23,6 @@ export default function startupTasks(deploymentTarget) {
       const branchName = deploymentTarget === 'staging' ? 'development' : 'master';
       return checkoutSources(allRepositories, branchName);
     })
-    .then(() => getTagsList(allRepositories));
+    .then(() => getTagsList(allRepositories))
+    .then(() => getBranchNames(allRepositories));
 }

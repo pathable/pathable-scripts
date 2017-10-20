@@ -29,6 +29,13 @@ export default function mergeBranchIntoMaster(repositories, branchName) {
   console.log(chalk.yellow(`Merging ${branchName} branch into master for all repositories.`));
 
   const promises = map(repositories, (repository) => {
+    const branchNames = repository.branchNames;
+    if (branchNames.indexOf(branchName) === -1) {
+      console.log(chalk.red(`${branchName} is not a valid branch name for ${repository.name}.`));
+      return Promise.reject(new Error('Invalid branch name.'));
+    }
+
+    console.log(chalk.green(`Merging ${branchName} branch into master for ${repository.name}.`));
     const repositoryPath = path.join(deploymentRoot, repository.localPath);
     return gitRemoteUpdate(repository.name, repositoryPath)
       .then(() => {

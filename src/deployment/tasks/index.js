@@ -1,7 +1,6 @@
-export { default as checkoutSources } from './checkout-sources';
+export { default as startupTasks } from './startup/startup-tasks';
+
 export { default as checkoutTag } from './checkout-tag';
-export { default as getTagsList } from './get-tags-list';
-export { default as cloneRepositories } from './clone-repositories';
 export { default as updatePackageJsons } from './update-package-jsons';
 export { default as loadEnvVariables } from './load-env-variables';
 export { default as installNpmDependencies } from './install-npm-dependencies';
@@ -10,7 +9,6 @@ export { default as deployToServer } from './deploy-to-server';
 export { default as tagRepositories } from './tag-repositories';
 export { default as removeTagFromRepositories } from './remove-tag-from-repositories';
 export { default as injectTagNameIntoSettings } from './inject-tag-name-into-settings';
-export { default as startupTasks } from './startup-tasks';
 export { default as loadGlobalVariables } from './load-global-variables';
 export { default as removeMinifier } from './remove-minifier';
 export { default as mergeBranchIntoMaster } from './merge-branch-into-master';

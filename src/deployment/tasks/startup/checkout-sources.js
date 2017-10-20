@@ -3,7 +3,7 @@ import { map } from 'lodash';
 import { Promise } from 'es6-promise';
 import chalk from 'chalk';
 
-import { gitCheckoutBranch, gitRemoteUpdate, gitPull } from '../../utilities/git';
+import { gitCheckoutBranch, gitRemoteUpdate, gitPull } from '../../../utilities/git';
 
 /**
  * This function performs the following tasks:-

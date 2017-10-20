@@ -7,7 +7,7 @@ import { loadEnvVariables as loadEnvVariablesForRepository } from '../../utiliti
  * This loads the environment variables specified in the config/.env file and the deployment target
  * specific config/staging/.env or config/production/.env file. Combine these two to get the
  * final environment variables.
- * The variables that we need from these for ddeployment to galaxy servers are:-
+ * The variables that we need from these for deployment to galaxy servers are:-
  * - GALAXY_HOSTNAME
  * - DEPLOY_HOSTNAME
  * We also need the following for running unit tests.

@@ -1,7 +1,7 @@
 import path from 'path';
 import chalk from 'chalk';
 
-import { gitGetTagsList } from '../../utilities/git';
+import { gitGetTagsList } from '../../../utilities/git';
 
 /**
  * This prints out the list of 5 most recent tags that have been created on the repositories.

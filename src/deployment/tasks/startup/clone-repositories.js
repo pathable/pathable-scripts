@@ -3,8 +3,8 @@ import fs from 'fs';
 import { Promise } from 'es6-promise';
 import chalk from 'chalk';
 
-import { getAllRepositories } from '../../configuration';
-import { gitClone } from '../../utilities/git';
+import { getAllRepositories } from '../../../configuration';
+import { gitClone } from '../../../utilities/git';
 
 export default function cloneRepositories() {
   console.log(chalk.yellow('Cloning repositories into the deployment folder.'));
