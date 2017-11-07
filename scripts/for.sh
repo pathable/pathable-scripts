@@ -114,7 +114,7 @@ fi
 if [ "$target" == "all" ] || [ "$target" == "packages" ]; then
   for d in $packagesDir/*
     do
-      if shouldRun $target "$d"; then
+      if shouldRun "packages" "$d"; then
         cd "$d"
         printf "${BLUE}Running command in "$(basename $d)":\n${NC}"
         eval "'$command'" || true
