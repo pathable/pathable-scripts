@@ -54,6 +54,7 @@ const inputSchema = {
       enum: ['y', 'n'],
       required: true,
     },
+    /*
     runPackageUnitTests: {
       default: 'n',
       description: 'Run unit tests for the dependent packages. (y)es or (n)o.',
@@ -62,6 +63,7 @@ const inputSchema = {
       enum: ['y', 'n'],
       required: true,
     },
+    */
     doParallelDeployments: {
       default: 'n',
       description: 'Run scripts in parallel where possible. (y)es or (n)o.',

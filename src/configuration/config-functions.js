@@ -1,5 +1,6 @@
 import { find, filter } from 'lodash';
 import Repositories from './repositories';
+import Packages from './packages';
 
 export function getAllRepositories() {
   return Repositories;
@@ -19,4 +20,8 @@ export function getRepositoryByName(repositoryName) {
 
 export function getRepositoriesByName(repositoryNames) {
   return filter(Repositories, repository => repositoryNames.indexOf(repository.name) !== -1);
+}
+
+export function getAllPackages() {
+  return Packages;
 }

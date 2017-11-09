@@ -2,16 +2,17 @@ import prompt from 'prompt';
 import chalk from 'chalk';
 
 import inputSchema from './input-schema';
-import { getRepositoriesByName } from '../../configuration';
+import { getRepositoriesByName, PackagesContainerRepositoryName } from '../../configuration';
 import {
   loadGlobalVariables,
   startupTasks,
   checkoutTag,
   updatePackageJsons,
   loadEnvVariables,
-  installNpmDependencies,
+  installNpmDependenciesForRepositories,
+  installNpmDependenciesForPackages,
   injectTagNameIntoSettings,
-  runUnitTests,
+  runAppUnitTests,
   deployToServer,
 } from '../tasks';
 
@@ -33,7 +34,7 @@ if (globalVariablesLoaded && loggedIn) {
       .get(inputSchema, (err, inputs) => {
         const appNames = getAppsToBuild(inputs);
         const packageNames = getDependencies(appNames);
-        const repositoryNames = appNames.concat(packageNames);
+        const repositoryNames = appNames.concat(PackagesContainerRepositoryName);
         const appRepositories = getRepositoriesByName(appNames);
         const repositories = getRepositoriesByName(repositoryNames);
 
@@ -41,8 +42,9 @@ if (globalVariablesLoaded && loggedIn) {
         updatePackageJsons(repositories);
         loadEnvVariables(repositories);
         injectTagNameIntoSettings(appRepositories, inputs.tagName);
-        return installNpmDependencies(repositories)
-          .then(() => runUnitTests(inputs, repositories))
+        return installNpmDependenciesForRepositories(repositories)
+          .then(() => installNpmDependenciesForPackages(packageNames))
+          .then(() => runAppUnitTests(appRepositories, inputs))
           .then(() => deployToServer(appRepositories, inputs.doParallelDeployments));
       })
       .then(() => {

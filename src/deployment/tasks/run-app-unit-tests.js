@@ -22,7 +22,7 @@ function runUnitTestsOnRepository(inputs, deploymentRoot, repository) {
   return Promise.resolve();
 }
 
-export default function runUnitTests(inputs, repositories) {
+export default function runAppUnitTests(repositories, inputs) {
   console.log(chalk.yellow('Running unit tests...'));
   const deploymentRoot = process.env.DEPLOYMENT_ROOT;
   const runInParallel = inputs.doParallelDeployments;

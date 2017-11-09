@@ -1,3 +1,5 @@
+export const PackagesContainerRepositoryName = 'pathable-packages';
+
 const Repositories = [
   {
     name: 'pathable-supervisor',
@@ -29,76 +31,11 @@ const Repositories = [
     remoteUrl: 'https://github.com/pathable/pathable-mailer.git',
     localPath: 'pathable-mailer',
   },
-
   {
-    name: 'pathable-api',
+    name: 'pathable-packages',
     isApp: false,
-    remoteUrl: 'https://github.com/pathable/pathable-api.git',
-    localPath: 'pathable-api',
-    testPackage: true,
-  },
-  {
-    name: 'pathable-collections',
-    isApp: false,
-    remoteUrl: 'https://github.com/pathable/pathable-collections.git',
-    localPath: 'pathable-collections',
-    testPackage: true,
-  },
-  {
-    name: 'pathable-collection2-core',
-    isApp: false,
-    remoteUrl: 'https://github.com/pathable/pathable-collection2-core.git',
-    localPath: 'pathable-collection2-core',
-    testPackage: false,
-  },
-  {
-    name: 'pathable-global-styles',
-    isApp: false,
-    remoteUrl: 'https://github.com/pathable/pathable-global-styles.git',
-    localPath: 'pathable-global-styles',
-    testPackage: false,
-  },
-  {
-    name: 'pathable-schema',
-    isApp: false,
-    remoteUrl: 'https://github.com/pathable/pathable-schema.git',
-    localPath: 'pathable-schema',
-    testPackage: true,
-  },
-  {
-    name: 'pathable-styles',
-    isApp: false,
-    remoteUrl: 'https://github.com/pathable/pathable-styles.git',
-    localPath: 'pathable-styles',
-    testPackage: true,
-  },
-  {
-    name: 'pathable-ui',
-    isApp: false,
-    remoteUrl: 'https://github.com/pathable/pathable-ui.git',
-    localPath: 'pathable-ui',
-    testPackage: true,
-  },
-  {
-    name: 'pathable-utilities',
-    isApp: false,
-    remoteUrl: 'https://github.com/pathable/pathable-utilities.git',
-    localPath: 'pathable-utilities',
-    testPackage: true,
-  },
-  {
-    name: 'pathable-importer',
-    isApp: false,
-    remoteUrl: 'https://github.com/pathable/pathable-importer.git',
-    localPath: 'pathable-importer',
-    testPackage: true,
-  },
-  {
-    name: 'pathable-vendor',
-    isApp: false,
-    remoteUrl: 'https://github.com/pathable/pathable-vendor.git',
-    localPath: 'pathable-vendor',
-    testPackage: false,
+    remoteUrl: 'https://github.com/pathable/pathable-packages.git',
+    localPath: 'pathable-packages',
   },
 ];
 

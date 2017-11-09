@@ -2,17 +2,18 @@ import prompt from 'prompt';
 import chalk from 'chalk';
 
 import inputSchema from './input-schema';
-import { getRepositoriesByName } from '../../configuration';
+import { getRepositoriesByName, PackagesContainerRepositoryName } from '../../configuration';
 import {
   loadGlobalVariables,
   startupTasks,
   checkoutTag,
   updatePackageJsons,
   loadEnvVariables,
-  installNpmDependencies,
+  installNpmDependenciesForRepositories,
+  installNpmDependenciesForPackages,
   injectTagNameIntoSettings,
   removeMinifier,
-  runUnitTests,
+  runAppUnitTests,
   deployToServer,
 } from '../tasks';
 
@@ -34,18 +35,22 @@ if (globalVariablesLoaded && loggedIn) {
       .get(inputSchema, (err, inputs) => {
         const appNames = getAppsToBuild(inputs);
         const packageNames = getDependencies(appNames);
-        const repositoryNames = appNames.concat(packageNames);
+        const repositoryNames = appNames.concat(PackagesContainerRepositoryName);
         const appRepositories = getRepositoriesByName(appNames);
         const repositories = getRepositoriesByName(repositoryNames);
+        const skipActualDeployment = inputs.skipActualDeployment === 'y';
 
         checkoutTag(repositories, inputs.tagName);
         updatePackageJsons(repositories);
         loadEnvVariables(repositories);
         injectTagNameIntoSettings(appRepositories, inputs.tagName);
         removeMinifier(appRepositories, inputs.minimizeCode);
-        return installNpmDependencies(repositories)
-          .then(() => runUnitTests(inputs, repositories))
-          .then(() => deployToServer(appRepositories, inputs.doParallelDeployments));
+        return installNpmDependenciesForRepositories(repositories)
+          .then(() => installNpmDependenciesForPackages(packageNames))
+          .then(() => runAppUnitTests(appRepositories, inputs))
+          .then(() =>
+            deployToServer(appRepositories, inputs.doParallelDeployments, skipActualDeployment),
+          );
       })
       .then(() => {
         console.log(chalk.green('Finished deployment.'));

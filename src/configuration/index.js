@@ -4,4 +4,8 @@ export {
   getPackageRepositories,
   getRepositoryByName,
   getRepositoriesByName,
-} from './repository-functions';
+  getAllPackages,
+} from './config-functions';
+
+export { PackagesContainerRepositoryName } from './repositories';
+export { PackagesRoot } from './packages';
