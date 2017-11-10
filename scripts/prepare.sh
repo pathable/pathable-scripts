@@ -31,10 +31,10 @@ function prepare {
 function prepareDependencies {
   package=${1-}
   pull=${2-}
-  packagePath=$packageDir/$package
+  packagePath=../pathable-packages
   if [ ! -d "$packagePath" ]; then
     branch=$(getBranch)
-    git clone https://github.com/pathable/$package.git $packagePath
+    git clone https://github.com/pathable/pathable-packages.git $packagePath
   fi
   cd $packagePath
   prepare $package $pull
@@ -44,25 +44,13 @@ function prepareDependencies {
 # Prepare app packages from a Meteor app
 function prepareAppDependencies {
   pull=${1-}
-  while read -r line
-  do
-    package=$(echo ${line} | sed -n 's/\(pathable-*\)/\1/p')
-    if [ ! -z "$package" ]; then
-      prepareDependencies $package $pull
-    fi
-  done < '.meteor/packages'
+  prepareDependencies "pathable-packages" $pull
 }
 
 # Prepare app packages from a Meteor app
 function preparePackageDependencies {
   pull=${1-}
-  cat 'package.js' | grep "api.use([\'\"]pathable\-.*[\'\"]);" | sort | uniq | while read -r line
-  do
-    package=$(sed -n "s/^api.use([\'\"]\(pathable\-.*\)[\'\"]);$/\1/p" <<< "${line}")
-    if [ ! -z "$package" ]; then
-      prepareDependencies $package $pull
-    fi
-  done
+  prepareDependencies "pathable-packages" $pull
 }
 
 function usage { echo "Usage: $0 [-p(ull)]" 1>&2; exit 1; }
