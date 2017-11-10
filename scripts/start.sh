@@ -1,6 +1,7 @@
 #!/bin/bash -e
 
 . "node_modules/pathable-scripts/scripts/_env.sh"
+. "node_modules/pathable-scripts/scripts/_lib.sh"
 
 runner=${1-browser}
 package=${2-./}
@@ -26,6 +27,12 @@ fi
 if ! type "redis-server" > /dev/null; then
   echo "Redis is required but it doesn't appear to be installed. Once running be sure to set REDIS_HOST and REDIS_PORT."
   exit
+fi
+
+if [[ $runner == *"test"* ]]; then
+  packageDir=$METEOR_PACKAGE_DIRS
+  printf "${BLUE}Linking react from dependencies...${NC}\n"
+  npm link $packageDir/pathable-vendor/node_modules/react > /dev/null
 fi
 
 if [ $runner = "test" ]; then
