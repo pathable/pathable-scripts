@@ -34,7 +34,7 @@ function prepareDependencies {
   packagePath=../pathable-packages
   if [ ! -d "$packagePath" ]; then
     branch=$(getBranch)
-    git clone https://github.com/pathable/pathable-packages.git $packagePath
+    git clone --recursive https://github.com/pathable/pathable-packages.git $packagePath
   fi
   cd $packagePath
   prepare $package $pull
