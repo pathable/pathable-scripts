@@ -1,6 +1,7 @@
 /* eslint-disable global-require, import/no-dynamic-require */
 import fs from 'fs';
 import fsp from 'fs-promise';
+import mkdirp from 'mkdirp';
 import includes from 'lodash.includes';
 
 import { vendorDir } from './constants';
@@ -52,7 +53,7 @@ export default () => {
   dependencies.forEach((dependency) => {
     const dir = `${vendorDir}/${dependency}`;
     if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir);
+      mkdirp.sync(dir);
     }
 
     const shouldExport = true;
