@@ -10,7 +10,9 @@
     "p-prepare": "scripts/prepare.sh",
     "p-deploy": "scripts/deploy.sh",
     "p-util": "scripts/util.sh",
-    "p-for": "scripts/for.sh"
+    "p-for": "scripts/for.sh",
+    "p-generate": "scripts/generate.sh",
+    "p-apply": "scripts/apply.sh"
   },
   "scripts": {
     "lint": "eslint . --ext js",
@@ -34,7 +36,8 @@
     "mkdirp": "^0.5.1",
     "moment": "^2.18.1",
     "node-fetch": "^1.7.3",
-    "prompt": "^1.0.0"
+    "prompt": "^1.0.0",
+    "slugs": "^0.1.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
