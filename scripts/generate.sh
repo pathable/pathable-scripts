@@ -6,4 +6,4 @@
 load_env "$HOME/.pathable-env"
 load_env "config/$environment/.env"
 
-node ./node_modules/pathable-scripts/dist/generators/generate "$@"
+node ./node_modules/pathable-scripts/dist/generators/migrations/generate "$@"
