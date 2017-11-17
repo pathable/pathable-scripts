@@ -1,6 +1,0 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = "\n/* eslint \"no-unused-expressions\": \"off\" */\n/* eslint \"no-unused-vars\": \"off\" */\nimport chai from 'chai';\nimport sinonChai from 'sinon-chai';\nimport runMigrationTest from './run-migration-test';\n\nconst migrationNumber = '{{migrationNumber}}';\nconst previousMigrationNumber = '{{previousMigrationNumber}}';\n\nchai.should();\nchai.use(sinonChai);\nconst expect = chai.expect;\n\nconst generateData = () => {\n  // Data to be added before executing the migration\n\n  /* INSERT CODE HERE */\n\n};\n\nconst testUp = () => {\n  // Tests that will run after applying the migration\n  it('should run', () => {});\n\n  /* INSERT CODE HERE */\n\n};\n\nconst testDown = () => {\n  // Once it was migrated up, it will migrate down and these tests will run\n  it('should run', () => {});\n\n  /* INSERT CODE HERE */\n\n};\n\nrunMigrationTest({ generateData, testUp, testDown, migrationNumber, previousMigrationNumber });\n";

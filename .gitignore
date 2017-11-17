@@ -1,10 +1,7 @@
 .DS_Store
 npm-debug.log
 
-dist/configuration
-dist/deployment
-dist/development
-dist/utilities
+dist
 deploy
 logs
 node_modules

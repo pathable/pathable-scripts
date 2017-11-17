@@ -6,4 +6,4 @@
 load_env "$HOME/.pathable-env"
 load_env "config/$environment/.env"
 
-node ./node_modules/pathable-scripts/dist/dependencies clean-vendor "$@"
+./node_modules/pathable-scripts/node_modules/.bin/babel-node ./node_modules/pathable-scripts/src/dependencies clean-vendor "$@"
