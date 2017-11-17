@@ -28,7 +28,7 @@ var _jsdom2 = _interopRequireDefault(_jsdom);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } /* eslint-disable global-require, import/no-dynamic-require */
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } /* eslint-disable global-require, import/no-dynamic-require, no-underscore-dangle */
 
 
 (0, _jsdom2.default)();
@@ -46,6 +46,7 @@ var exportTemplate = function exportTemplate(dependency) {
   var module = require(_constants.vendorDir + '/node_modules/' + dependency);
   var submodules = '*';
   try {
+    delete module.__esModule;
     submodules = Object.keys(module);
     if (submodules.length === 0 || module.default) {
       return defaultTemplate + '\n' + allModuleTemplate;

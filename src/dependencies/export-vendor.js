@@ -1,4 +1,4 @@
-/* eslint-disable global-require, import/no-dynamic-require */
+/* eslint-disable global-require, import/no-dynamic-require, no-underscore-dangle */
 import fs from 'fs';
 import fsp from 'fs-promise';
 import mkdirp from 'mkdirp';
@@ -22,6 +22,7 @@ const exportTemplate = (dependency) => {
   const module = require(`${vendorDir}/node_modules/${dependency}`);
   let submodules = '*';
   try {
+    delete module.__esModule;
     submodules = Object.keys(module);
     if (submodules.length === 0 || module.default) {
       return `${defaultTemplate}\n${allModuleTemplate}`;
