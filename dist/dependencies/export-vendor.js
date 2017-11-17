@@ -81,7 +81,7 @@ exports.default = function () {
       _mkdirp2.default.sync(dir);
     }
 
-    var shouldExport = true;
+    var shouldExport = !_fs2.default.existsSync(dir + '/.exported');
     if (shouldExport) {
       var exportContent = exportTemplate(dependency);
       var work = _fsPromise2.default.writeFile(dir + '/index.js', exportContent).then(function () {

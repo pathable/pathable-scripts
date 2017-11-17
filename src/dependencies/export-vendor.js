@@ -57,7 +57,7 @@ export default () => {
       mkdirp.sync(dir);
     }
 
-    const shouldExport = true;
+    const shouldExport = !fs.existsSync(`${dir}/.exported`);
     if (shouldExport) {
       const exportContent = exportTemplate(dependency);
       const work = fsp
