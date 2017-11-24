@@ -6,4 +6,4 @@
 load_env "$HOME/.pathable-env"
 load_env "config/$environment/.env"
 
-./node_modules/pathable-scripts/node_modules/.bin/babel-node ./node_modules/pathable-scripts/src/generators/migrations/apply "$@"
+node ./node_modules/pathable-scripts/dist/generators/migrations/apply "$@"
