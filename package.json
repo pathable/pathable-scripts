@@ -25,6 +25,7 @@
     "custom-command": "node ./dist/development/custom-command/index.js"
   },
   "dependencies": {
+    "babel-cli": "^6.26.0",
     "btoa": "^1.1.2",
     "chalk": "^2.1.0",
     "commander": "^2.11.0",
@@ -37,7 +38,6 @@
     "prompt": "^1.0.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.0.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.0",
