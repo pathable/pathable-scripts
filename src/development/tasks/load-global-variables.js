@@ -20,14 +20,17 @@ export default function loadGlobalVariables(checkHerokuVariables = false) {
       if (!globalEnv.METEOR_PACKAGE_DIRS) {
         console.log('~/.pathable.env does not contain the required METEOR_PACKAGE_DIRS variable.');
       }
-      if (!globalEnv.HEROKU_MONGO_URL) {
+      if (checkHerokuVariables && !globalEnv.HEROKU_MONGO_URL) {
         console.log('~/.pathable.env does not contain the required HEROKU_MONGO_URL variable.');
       }
     } else {
       process.env.METEOR_PACKAGE_DIRS = globalEnv.METEOR_PACKAGE_DIRS;
-      console.log(`Root path for repositories is set to '${globalEnv.METEOR_PACKAGE_DIRS}'`);
-      process.env.HEROKU_MONGO_URL = globalEnv.HEROKU_MONGO_URL;
-      console.log(`MongoDB url for her heroku apps is set to '${globalEnv.HEROKU_MONGO_URL}'`);
+      console.log(`Path for packages is set to '${globalEnv.METEOR_PACKAGE_DIRS}'`);
+
+      if (checkHerokuVariables) {
+        process.env.HEROKU_MONGO_URL = globalEnv.HEROKU_MONGO_URL;
+        console.log(`MongoDB url for her heroku apps is set to '${globalEnv.HEROKU_MONGO_URL}'`);
+      }
     }
   } else {
     result = false;

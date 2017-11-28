@@ -74,6 +74,12 @@ function getSettingsForApp(repositoryName, featurePrefix) {
       });
       break;
 
+    case 'pathable-design':
+      settings = JSON.stringify({
+        public: {},
+      });
+      break;
+
     default:
       break;
   }

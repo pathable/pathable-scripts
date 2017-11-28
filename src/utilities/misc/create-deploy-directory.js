@@ -15,7 +15,7 @@ export function createDeployDirectory(appRoot) {
 
 export function createDeployDirectoryForHeroku(appRoot) {
   const deploymentRoot = path.join(appRoot, './heroku');
-  console.log(chalk.yellow(`Creating deployment directory ${deploymentRoot}.`));
+  console.log(chalk.yellow(`Creating heroku deployment directory ${deploymentRoot}.`));
   mkdirp.sync(deploymentRoot);
   return deploymentRoot;
 }

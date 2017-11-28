@@ -6,7 +6,7 @@ import { createHerokuApp, setConfigVariable, pushCodeToHeroku } from '../../util
 
 function setConfigVariablesForApp(repositoryName, gitRepositoryPath, featurePrefix) {
   const mongoUrl = process.env.HEROKU_MONGO_URL;
-  const appName = `${featurePrefix}-${repositoryName}`;
+  const appName = featurePrefix ? `${featurePrefix}-${repositoryName}` : repositoryName;
 
   setConfigVariable(appName, gitRepositoryPath, 'MONGO_URL', mongoUrl);
   setConfigVariable(appName, gitRepositoryPath, 'METEOR_SETTINGS', '"$(< settings.json)"');
@@ -24,7 +24,7 @@ export default function deployToHeroku(appRepositories, featurePrefix) {
   const deploymentRoot = process.env.DEPLOYMENT_ROOT;
 
   appRepositories.forEach((repository) => {
-    const appName = `${featurePrefix}-${repository.name}`;
+    const appName = featurePrefix ? `${featurePrefix}-${repository.name}` : repository.name;
     console.log(`Deploying ${appName}`);
     createHerokuApp(appName);
     const gitRepositoryPath = path.join(deploymentRoot, repository.name, 'bundle');
