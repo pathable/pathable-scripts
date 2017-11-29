@@ -17,6 +17,12 @@ export default function generateSettingsJson(designRepository) {
     public: {
       componentTree,
     },
+    security: {
+      account: {
+        username: 'admin',
+        password: 'p@ssw0rd',
+      },
+    },
   });
 
   const settingsJsonFile = path.join(
