@@ -27,7 +27,7 @@
     "remove-tags": "node ./dist/deployment/remove-tags/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "custom-command": "node ./dist/development/custom-command/index.js",
-    "deploy-apps-to-heroku": "node ./dist/development/deploy-to-heroku/index.js",
+    "deploy-apps-to-heroku": "node ./dist/development/deploy-apps-to-heroku/index.js",
     "deploy-design-to-heroku": "node ./dist/development/deploy-design-to-heroku/index.js"
   },
   "dependencies": {

@@ -3,7 +3,7 @@ import prompt from 'prompt';
 import chalk from 'chalk';
 
 import inputSchema from './input-schema';
-import { getAppRepositories } from '../../configuration';
+import { getRepositoriesByName } from '../../configuration';
 import {
   loadGlobalVariables,
   buildDeployBundle,
@@ -12,7 +12,11 @@ import {
   generateSettingsJson,
   deployToHeroku,
 } from '../tasks';
-import { createDeployDirectoryForHeroku, createLogsDirectory } from '../../utilities/misc';
+import {
+  createDeployDirectoryForHeroku,
+  createLogsDirectory,
+  getAppsToBuild,
+} from '../../utilities/misc';
 
 const globalVariablesLoaded = loadGlobalVariables(true);
 if (globalVariablesLoaded) {
@@ -24,10 +28,10 @@ if (globalVariablesLoaded) {
   process.env.DEPLOYMENT_ROOT = deploymentRoot;
   process.env.LOGS_ROOT = logsRoot;
 
-  const appRepositories = getAppRepositories();
-
   prompt.start();
   prompt.get(inputSchema, (err, inputs) => {
+    const appNames = getAppsToBuild(inputs);
+    const appRepositories = getRepositoriesByName(appNames);
     buildDeployBundle(appRepositories)
       .then(() => {
         generateProcfiles(appRepositories);

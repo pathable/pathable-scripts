@@ -36,6 +36,7 @@ function getSettingsForApp(repositoryName, featurePrefix) {
 
     case 'pathable-admin':
       settings = JSON.stringify({
+        communityLookupMethod: 'default-flag',
         public: {
           appHost: `${getAppName(featurePrefix)}.herokuapp.com`,
           adminHost: `${getAdminName(featurePrefix)}.herokuapp.com`,
@@ -47,6 +48,7 @@ function getSettingsForApp(repositoryName, featurePrefix) {
 
     case 'pathable-app':
       settings = JSON.stringify({
+        communityLookupMethod: 'default-flag',
         public: {
           appHost: `${getAppName(featurePrefix)}.herokuapp.com`,
           adminHost: `${getAdminName(featurePrefix)}.herokuapp.com`,
@@ -71,12 +73,6 @@ function getSettingsForApp(repositoryName, featurePrefix) {
             from: 'info@pathable.com',
           },
         },
-      });
-      break;
-
-    case 'pathable-design':
-      settings = JSON.stringify({
-        public: {},
       });
       break;
 
