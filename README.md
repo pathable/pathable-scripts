@@ -1,7 +1,13 @@
 # Pathable-CLI
 
 * [Pathable-CLI for development](./docs/pathable-cli-development.md)
+  * Deploy pathable-design to Heroku
+  * Deploy pathable-apps to Heroku
 * [Pathable-CLI for deployment](./docs/pathable-cli-deployment.md)
+  * Create tag for staging deployment
+  * Create tag for production deployment
+  * Deploy to staging
+  * Deploy to production
 
 # Pathable-Scripts
 

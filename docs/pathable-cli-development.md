@@ -21,13 +21,6 @@ the `METEOR_PACKAGE_DIRS` named variable defined in your `~/.pathable-env` file.
 2. Install dependencies for this CLI utility using `npm install`.
 3. Build the utility using `npm run build`.
 
-## Custom Command
-
-`npm run custom-command`
-
-This is similar in functionality to what `p-for` command provides. It allows running a command
-against all of the repositories.
-
 ## Deploy Pathable-Design to Heroku
 
 Apart from the `METEOR_PACKAGE_DIRS` variable in your `~/.pathable-env` file, you also need to add
