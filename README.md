@@ -1,7 +1,7 @@
 # Pathable-CLI
 
-[Pathable-CLI for development](./docs/pathable-cli-development.md)
-[Pathable-CLI for deployment](./docs/pathable-cli-deployment.md)
+* [Pathable-CLI for development](./docs/pathable-cli-development.md)
+* [Pathable-CLI for deployment](./docs/pathable-cli-deployment.md)
 
 # Pathable-Scripts
 
