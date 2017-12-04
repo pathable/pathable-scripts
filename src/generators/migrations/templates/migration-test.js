@@ -32,5 +32,4 @@ const testDown = () => {
 };
 
 runMigrationTest({ generateData, testUp, testDown, migrationNumber, previousMigrationNumber });
-
 `;
