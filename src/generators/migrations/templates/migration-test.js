@@ -14,9 +14,7 @@ const expect = chai.expect;
 
 const generateData = () => {
   // Data to be added before executing the migration
-
   /* INSERT CODE HERE */
-
 };
 
 const testUp = () => {
@@ -24,7 +22,6 @@ const testUp = () => {
   it('should run', () => {});
 
   /* INSERT CODE HERE */
-
 };
 
 const testDown = () => {
@@ -32,8 +29,8 @@ const testDown = () => {
   it('should run', () => {});
 
   /* INSERT CODE HERE */
-
 };
 
 runMigrationTest({ generateData, testUp, testDown, migrationNumber, previousMigrationNumber });
+
 `;
