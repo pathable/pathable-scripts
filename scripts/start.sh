@@ -24,11 +24,6 @@ if [ $runner = "packages-test" ] || [ $runner = "packages-ci-test" ] && [ -z "$p
   exit
 fi
 
-if ! type "redis-server" > /dev/null; then
-  echo "Redis is required but it doesn't appear to be installed. Once running be sure to set REDIS_HOST and REDIS_PORT."
-  exit
-fi
-
 if [[ $runner == *"test"* ]]; then
   packageDir=$METEOR_PACKAGE_DIRS
   printf "${BLUE}Linking react from dependencies...${NC}\n"
