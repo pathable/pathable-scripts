@@ -5,9 +5,6 @@ import chai from 'chai';
 import sinonChai from 'sinon-chai';
 import runMigrationTest from './run-migration-test';
 
-const migrationNumber = '{{migrationNumber}}';
-const previousMigrationNumber = '{{previousMigrationNumber}}';
-
 chai.should();
 chai.use(sinonChai);
 const expect = chai.expect;
@@ -30,6 +27,9 @@ const testDown = () => {
 
   /* INSERT CODE HERE */
 };
+
+const migrationNumber = '{{migrationNumber}}';
+const previousMigrationNumber = '{{previousMigrationNumber}}';
 
 runMigrationTest({ generateData, testUp, testDown, migrationNumber, previousMigrationNumber });
 `;
