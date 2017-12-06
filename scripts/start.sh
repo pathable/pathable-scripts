@@ -55,7 +55,7 @@ elif [ $runner = "ios" ]; then
   meteor run ios --settings $settingsFile --port $PORT --mobile-server $METEOR_MOBILE_SERVER &
 
 elif [ $runner = "ios-device" ]; then
-  meteor run ios --settings $settingsFile --port $PORT --mobile-server $METEOR_MOBILE_SERVER &
+  meteor run ios-device --settings $settingsFile --port $PORT --mobile-server $METEOR_MOBILE_SERVER &
 
 elif [ $runner = "android" ]; then
   meteor run android --settings $settingsFile --port $PORT --mobile-server $METEOR_MOBILE_SERVER &
