@@ -9,6 +9,12 @@ In order to perform deployment, you need to be logged into your meteor account o
 utility will check the login status at startup and exit if you are not logged in. Use `meteor login`
 to login to your account.
 
+## Build & Run
+
+1. Clone this repository to the same folder as your other pathable applications.
+2. Install dependencies for this CLI utility using `npm install`.
+3. Build the utility using `npm run build`.
+
 ## Github Integration
 
 1. Create a personal access token in your github account.
