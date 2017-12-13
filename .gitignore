@@ -6,5 +6,6 @@ dist/deployment
 dist/development
 dist/utilities
 deploy
+heroku
 logs
 node_modules

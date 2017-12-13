@@ -28,7 +28,7 @@ function getSettingsForApp(repositoryName, featurePrefix) {
         security: {
           account: {
             username: 'admin',
-            password: 'AllCowsEatGrass',
+            password: 'Did$You$Ever$Know11',
           },
         },
       });
@@ -36,12 +36,12 @@ function getSettingsForApp(repositoryName, featurePrefix) {
 
     case 'pathable-admin':
       settings = JSON.stringify({
-        communityLookupMethod: 'default-flag',
         public: {
           appHost: `${getAppName(featurePrefix)}.herokuapp.com`,
           adminHost: `${getAdminName(featurePrefix)}.herokuapp.com`,
           filepickerKey: 'ARv6lIAZ0QNi4ldM9AEXwz',
           jobsAppUrl: `https://${getJobsName(featurePrefix)}.herokuapp.com`,
+          communityLookupMethod: 'default-flag',
         },
       });
       break;
