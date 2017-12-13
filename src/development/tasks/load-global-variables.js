@@ -10,6 +10,8 @@ import chalk from 'chalk';
 export default function loadGlobalVariables(checkHerokuVariables = false) {
   let result = true;
 
+  process.env.TOOL_NODE_FLAGS = '--max-old-space-size=4096';
+
   console.log(chalk.yellow('Getting global variables from environment file...'));
   const globalEnvFile = path.resolve(path.join(process.env.HOME, '.pathable-env'));
   if (fs.existsSync(globalEnvFile)) {
