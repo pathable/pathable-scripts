@@ -48,12 +48,12 @@ function getSettingsForApp(repositoryName, featurePrefix) {
 
     case 'pathable-app':
       settings = JSON.stringify({
-        communityLookupMethod: 'default-flag',
         public: {
           appHost: `${getAppName(featurePrefix)}.herokuapp.com`,
           adminHost: `${getAdminName(featurePrefix)}.herokuapp.com`,
           filepickerKey: 'ARv6lIAZ0QNi4ldM9AEXwz',
           jobsAppUrl: `https://${getJobsName(featurePrefix)}.herokuapp.com`,
+          communityLookupMethod: 'default-flag',
         },
       });
       break;
