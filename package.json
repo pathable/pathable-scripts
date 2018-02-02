@@ -1,10 +1,11 @@
 {
   "name": "pathable-scripts",
-  "version": "0.2.28",
+  "version": "0.2.29",
   "description": "Scripts used to manage pathable applications.",
   "author": "Pathable, Inc.",
   "bin": {
     "p-start": "scripts/start.sh",
+    "p-lint-package": "scripts/lint-package.sh",
     "p-debug": "scripts/debug.sh",
     "p-install": "scripts/install.sh",
     "p-prepare": "scripts/prepare.sh",
@@ -44,7 +45,6 @@
     "mkdirp": "^0.5.1",
     "moment": "^2.18.1",
     "node-fetch": "^1.7.3",
-    "plop": "^1.8.0",
     "prompt": "^1.0.0",
     "slugs": "^0.1.3"
   },
