@@ -66,6 +66,9 @@ elif [ $runner = "android-device" ]; then
 elif [ $runner = "bundle-visualizer" ]; then
   meteor run --settings $settingsFile --port $PORT --extra-packages bundle-visualizer --production &
 
+elif [ $runner = "profile" ]; then
+  METEOR_PROFILE=1 meteor run --settings $settingsFile --port $PORT &
+
 else
   meteor run --settings $settingsFile --port $PORT &
 
