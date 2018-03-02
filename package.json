@@ -1,6 +1,6 @@
 {
   "name": "pathable-scripts",
-  "version": "0.2.30",
+  "version": "0.3.30",
   "description": "Scripts used to manage pathable applications.",
   "author": "Pathable, Inc.",
   "bin": {
@@ -15,7 +15,9 @@
     "p-generate": "scripts/generate.sh",
     "p-apply": "scripts/apply.sh",
     "p-export-vendor": "scripts/export-vendor.sh",
-    "p-clean-vendor": "scripts/clean-vendor.sh"
+    "p-clean-vendor": "scripts/clean-vendor.sh",
+    "p-db-dump": "scripts/db-dump.sh",
+    "p-db-restore": "scripts/db-restore.sh"
   },
   "scripts": {
     "lint": "eslint . --ext js",
