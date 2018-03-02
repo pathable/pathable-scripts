@@ -22,10 +22,10 @@ program
     const migrationName = slugs(rawMigrationName.toLowerCase());
     const timestamp = Date.now();
     const fileName = `${timestamp}-${migrationName}`;
-    const filePath = `${collectionsDir}/migrations/${fileName}.js`;
+    const filePath = `${collectionsDir}/migrations/migrations/${fileName}.js`;
     const testFilePath = `${collectionsDir}/migrations/${fileName}.tests.js`;
-    const migrationsFiles = [`${collectionsDir}/migrations/all.js`];
-    const testMigrationFiles = [`${collectionsDir}/migrations/all-tests.js`];
+    const migrationsFiles = [`${collectionsDir}/migrations/migrations/all.js`];
+    const testMigrationFiles = [`${collectionsDir}/migrations/migrations/all-tests.js`];
     const migrationVersionPath = `${collectionsDir}/migrations/migration-version.js`;
     const skipTests = options.skipTests;
 
