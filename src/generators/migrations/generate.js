@@ -23,7 +23,7 @@ program
     const timestamp = Date.now();
     const fileName = `${timestamp}-${migrationName}`;
     const filePath = `${collectionsDir}/migrations/migrations/${fileName}.js`;
-    const testFilePath = `${collectionsDir}/migrations/${fileName}.tests.js`;
+    const testFilePath = `${collectionsDir}/migrations/migrations/${fileName}.tests.js`;
     const migrationsFiles = [`${collectionsDir}/migrations/migrations/all.js`];
     const testMigrationFiles = [`${collectionsDir}/migrations/migrations/all-tests.js`];
     const migrationVersionPath = `${collectionsDir}/migrations/migration-version.js`;
