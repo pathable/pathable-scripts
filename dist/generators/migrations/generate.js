@@ -38,10 +38,10 @@ _commander2.default.command('migration <migration-name>').alias('m').description
   var migrationName = (0, _slugs2.default)(rawMigrationName.toLowerCase());
   var timestamp = Date.now();
   var fileName = timestamp + '-' + migrationName;
-  var filePath = collectionsDir + '/migrations/' + fileName + '.js';
-  var testFilePath = collectionsDir + '/migrations/' + fileName + '.tests.js';
-  var migrationsFiles = [collectionsDir + '/migrations/all.js'];
-  var testMigrationFiles = [collectionsDir + '/migrations/all-tests.js'];
+  var filePath = collectionsDir + '/migrations/migrations/' + fileName + '.js';
+  var testFilePath = collectionsDir + '/migrations/migrations/' + fileName + '.tests.js';
+  var migrationsFiles = [collectionsDir + '/migrations/migrations/all.js'];
+  var testMigrationFiles = [collectionsDir + '/migrations/migrations/all-tests.js'];
   var migrationVersionPath = collectionsDir + '/migrations/migration-version.js';
   var skipTests = options.skipTests;
 
